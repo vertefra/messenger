@@ -19,15 +19,10 @@ socket.on("connect", () => {
     store.dispatch(removeOfflineUser(id));
   });
   socket.on("new-message", (data) => {
-    console.log("A message has been received ==> ", data)
-    const userIdJSON = localStorage.getItem('user_id')
-    const userId = Number(JSON.parse(userIdJSON))
     const { recipientId, message, sender } = data
+    const { id: userId } = store.getState().user
     if (userId === recipientId){
-      console.log("This is for me")
       store.dispatch(setNewMessage(message, sender));
-    } else {
-      console.log("this is not for me!")
     }
   });
 });

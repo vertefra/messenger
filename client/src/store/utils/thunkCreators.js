@@ -60,7 +60,6 @@ export const logout = (id) => async (dispatch) => {
   try {
     await axios.delete("/auth/logout");
     await localStorage.removeItem("messenger-token");
-    await localStorage.removeItem("user_id");
     dispatch(gotUser({}));
     socket.emit("logout", id);
   } catch (error) {
