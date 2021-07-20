@@ -10,6 +10,7 @@ const Messages = (props) => {
     <Box>
       {messages.map((message, idx) => {
         const time = moment(message.createdAt).format("h:mm");
+        // Checks if we are at the last message
         const lastMessage = idx === messages.length - 1; 
         return message.senderId === userId ? (
           <SenderBubble

@@ -56,6 +56,17 @@ export const login = (credentials) => async (dispatch) => {
   }
 };
 
+export const setMessagesRead = (messageIds = []) => async (dispatch) => {
+  console.log("Messages ids == > ", messageIds)
+  try {
+    await axios.put(`/api/messages/setRead`, messageIds)
+    const { data } = await axios.get("/api/conversations");
+    await dispatch(gotConversations(data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const logout = (id) => async (dispatch) => {
   try {
     await axios.delete("/auth/logout");
@@ -117,3 +128,5 @@ export const searchUsers = (searchTerm) => async (dispatch) => {
     console.error(error);
   }
 };
+
+

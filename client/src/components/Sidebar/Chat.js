@@ -4,8 +4,21 @@ import { BadgeAvatar, ChatContent } from "../Sidebar";
 import { withStyles } from "@material-ui/core/styles";
 import { setActiveChat } from "../../store/activeConversation";
 import { connect } from "react-redux";
+import { setMessagesRead } from "../../store/utils/thunkCreators";
 
 const styles = {
+  unreadBubble: {
+    width: "28px",
+    height: "15px",
+    fontSize: "12px",
+    color: "white",
+    fontWeight: 900,
+    backgroundColor: "#3A8DFF",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 15
+  },
   root: {
     borderRadius: 8,
     height: 80,
@@ -21,12 +34,32 @@ const styles = {
 
 class Chat extends Component {
   handleClick = async (conversation) => {
-    await this.props.setActiveChat(conversation.otherUser.username);
+    const messageIds = []
+    conversation.messages = conversation.messages || []
+    for (let message of conversation.messages){
+      if (!message.isRead){
+        messageIds.push(message.id)
+      }
+    }
+    await this.props.setMessagesRead(messageIds)
+    await this.props.setActiveChat(conversation.otherUser.username)
   };
+
+  async componentDidUpdate () {
+    console.log("DID UPDATE??")
+    const conversation = this.props.conversation
+    await this.props.setActiveChat(conversation.otherUser.username)
+  }
 
   render() {
     const { classes } = this.props;
     const otherUser = this.props.conversation.otherUser;
+    const { messages } = this.props.conversation
+    
+    let unread = messages.reduce((acc, message) => {
+      return message.senderId === otherUser.id && !message.isRead ? acc + 1 : acc + 0 
+    }, 0)
+    
     return (
       <Box
         onClick={() => this.handleClick(this.props.conversation)}
@@ -39,6 +72,7 @@ class Chat extends Component {
           sidebar={true}
         />
         <ChatContent conversation={this.props.conversation} />
+        <Box className={classes.unreadBubble}>{unread}</Box>
       </Box>
     );
   }
@@ -49,7 +83,11 @@ const mapDispatchToProps = (dispatch) => {
     setActiveChat: (id) => {
       dispatch(setActiveChat(id));
     },
+    setMessagesRead: (messageIds = []) => {
+      dispatch(setMessagesRead(messageIds))
+    }
   };
+
 };
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(Chat));
