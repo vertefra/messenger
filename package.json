@@ -1,0 +1,27 @@
+{
+  "name": "immersive_project",
+  "version": "1.0.0",
+  "description": "A one-to-one realtime chat app.",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "npm --prefix client start",
+    "dev:server": "npm --prefix server run dev",
+    "seed": "npm --prefix server run seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vertefra/immersive_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vertefra/immersive_project/issues"
+  },
+  "homepage": "https://github.com/vertefra/immersive_project#readme"
+}
