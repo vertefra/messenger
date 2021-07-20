@@ -56,17 +56,6 @@ export const login = (credentials) => async (dispatch) => {
   }
 };
 
-export const setMessagesRead = (messageIds = []) => async (dispatch) => {
-  console.log("Messages ids == > ", messageIds)
-  try {
-    await axios.put(`/api/messages/setRead`, messageIds)
-    const { data } = await axios.get("/api/conversations");
-    await dispatch(gotConversations(data))
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 export const logout = (id) => async (dispatch) => {
   try {
     await axios.delete("/auth/logout");
@@ -82,8 +71,14 @@ export const logout = (id) => async (dispatch) => {
 
 export const fetchConversations = () => async (dispatch) => {
   try {
-    const { data } = await axios.get("/api/conversations");
-    dispatch(gotConversations(data));
+    const { data: conversations } = await axios.get("/api/conversations");
+    const messages = {};
+    for (let conversation of conversations){
+      for (let message of conversation.messages){
+        message.isRead = true;
+      }
+    }
+    dispatch(gotConversations(conversations));
   } catch (error) {
     console.error(error);
   }

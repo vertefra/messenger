@@ -4,7 +4,7 @@ import { BadgeAvatar, ChatContent } from "../Sidebar";
 import { withStyles } from "@material-ui/core/styles";
 import { setActiveChat } from "../../store/activeConversation";
 import { connect } from "react-redux";
-import { setMessagesRead } from "../../store/utils/thunkCreators";
+import { setMessagesAsRead } from "../../store/conversations";
 
 const styles = {
   unreadBubble: {
@@ -41,15 +41,9 @@ class Chat extends Component {
         messageIds.push(message.id)
       }
     }
-    await this.props.setMessagesRead(messageIds)
+    this.props.setMessagesAsRead(conversation.id)
     await this.props.setActiveChat(conversation.otherUser.username)
   };
-
-  async componentDidUpdate () {
-    console.log("DID UPDATE??")
-    const conversation = this.props.conversation
-    await this.props.setActiveChat(conversation.otherUser.username)
-  }
 
   render() {
     const { classes } = this.props;
@@ -83,9 +77,9 @@ const mapDispatchToProps = (dispatch) => {
     setActiveChat: (id) => {
       dispatch(setActiveChat(id));
     },
-    setMessagesRead: (messageIds = []) => {
-      dispatch(setMessagesRead(messageIds))
-    }
+    setMessagesAsRead: (conversationId) =>{
+      dispatch(setMessagesAsRead(conversationId))
+    } 
   };
 
 };

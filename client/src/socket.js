@@ -20,7 +20,19 @@ socket.on("connect", () => {
   });
   socket.on("new-message", (data) => {
     const { recipientId, message, sender } = data
-    const { id: userId } = store.getState().user
+    const state = store.getState()
+    const { activeConversation, conversations, user } = state
+    const { id: userId } = user
+    
+    if(activeConversation){
+      const conversation = conversations.find(c => c.otherUser.username === activeConversation)
+      if(message.conversationId == conversation.id){
+        message.isRead = true
+      }      
+    } else {
+      message.isRead = false
+    }
+
     if (userId === recipientId){
       store.dispatch(setNewMessage(message, sender));
     }
