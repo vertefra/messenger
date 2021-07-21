@@ -18,8 +18,6 @@ router.put("/setRead", async(req, res, next) => {
       }
     })
 
-    console.log(data)
-
   } catch(error) {
     next(error)
   }

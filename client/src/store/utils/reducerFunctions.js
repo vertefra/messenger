@@ -34,7 +34,6 @@ const defaultConversation = {
 
 export const messagesSetAsRead = (state = [], conversationId) => {
   const conversation = state.find(c => c.id === conversationId)
-  console.log(conversationId)
   if (conversation){
     const messages = [...conversation.messages]
     for (let message of messages){
@@ -110,7 +109,4 @@ export const addNewConvoToStore = (state, recipientId, message) => {
   });
 };
 
-export const setMessagesAsRead = (state, messagesIds) => {
-  const { messages } = state
-  console.log("Messagese", messages)
-}
+

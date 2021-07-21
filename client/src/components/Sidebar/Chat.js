@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { setActiveChat } from "../../store/activeConversation";
 import { connect } from "react-redux";
 import { setMessagesAsRead } from "../../store/conversations";
+import socket from "../../socket";
 
 const styles = {
   unreadBubble: {
@@ -34,15 +35,12 @@ const styles = {
 
 class Chat extends Component {
   handleClick = async (conversation) => {
-    const messageIds = []
     conversation.messages = conversation.messages || []
-    for (let message of conversation.messages){
-      if (!message.isRead){
-        messageIds.push(message.id)
-      }
-    }
     this.props.setMessagesAsRead(conversation.id)
     await this.props.setActiveChat(conversation.otherUser.username)
+    if(conversation.messages.length > 0){
+      socket.emit('read-message', conversation.messages[0])
+    }
   };
 
   render() {
@@ -66,7 +64,9 @@ class Chat extends Component {
           sidebar={true}
         />
         <ChatContent conversation={this.props.conversation} />
-        <Box className={classes.unreadBubble}>{unread}</Box>
+        {unread !== 0 &&
+          <Box className={classes.unreadBubble}>{unread}</Box>
+        }
       </Box>
     );
   }

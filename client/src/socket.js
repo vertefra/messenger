@@ -4,6 +4,7 @@ import {
   setNewMessage,
   removeOfflineUser,
   addOnlineUser,
+  setMessagesAsRead,
 } from "./store/conversations";
 
 const socket = io(window.location.origin);
@@ -18,6 +19,14 @@ socket.on("connect", () => {
   socket.on("remove-offline-user", (id) => {
     store.dispatch(removeOfflineUser(id));
   });
+
+  socket.on("read-message", message => {
+    const { id: userId } = store.getState().user
+    if(userId === message?.senderId){
+      store.dispatch(setMessagesAsRead(message.conversationId))
+    }
+  })
+
   socket.on("new-message", (data) => {
     const { recipientId, message, sender } = data
     const state = store.getState()
@@ -28,6 +37,7 @@ socket.on("connect", () => {
       const conversation = conversations.find(c => c.otherUser.username === activeConversation)
       if(message.conversationId == conversation.id){
         message.isRead = true
+        socket.emit("read-message", message)
       }      
     } else {
       message.isRead = false
