@@ -31,9 +31,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const OtherUserBubble = (props) => {
+const OtherUserTypingBubble = (props) => {
   const classes = useStyles();
-  const { text, time, otherUser } = props;
+  const { otherUser } = props;
   return (
     <Box className={classes.root}>
       <Avatar
@@ -43,14 +43,14 @@ const OtherUserBubble = (props) => {
       ></Avatar>
       <Box>
         <Typography className={classes.usernameDate}>
-          {otherUser.username} {time}
+          {otherUser.username}
         </Typography>
         <Box className={classes.bubble}>
-          <Typography className={classes.text}>{text}</Typography>
+          <Typography className={classes.text}> . . . </Typography>
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default OtherUserBubble;
+export default OtherUserTypingBubble;

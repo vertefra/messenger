@@ -72,16 +72,16 @@ export const addConversation = (recipientId, newMessage) => {
 export const setMessagesAsRead = (conversationId) => {
   return {
     type: SET_MESSAGES_AS_READ,
-    conversationId
-  }
-}
+    conversationId,
+  };
+};
 
 // REDUCER
 
 const reducer = (state = [], action) => {
   switch (action.type) {
     case SET_MESSAGES_AS_READ:
-      return messagesSetAsRead(state, action.conversationId)
+      return messagesSetAsRead(state, action.conversationId);
     case GET_CONVERSATIONS:
       return action.conversations;
     case SET_MESSAGE:

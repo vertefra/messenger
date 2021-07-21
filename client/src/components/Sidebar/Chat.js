@@ -18,7 +18,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 15
+    borderRadius: 15,
   },
   root: {
     borderRadius: 8,
@@ -35,23 +35,36 @@ const styles = {
 
 class Chat extends Component {
   handleClick = async (conversation) => {
-    conversation.messages = conversation.messages || []
-    this.props.setMessagesAsRead(conversation.id)
-    await this.props.setActiveChat(conversation.otherUser.username)
-    if(conversation.messages.length > 0){
-      socket.emit('read-message', conversation.messages[0])
+    conversation.messages = conversation.messages || [];
+
+    await this.props.setMessagesAsRead(conversation.id);
+
+    await this.props.setActiveChat(conversation.otherUser.username);
+
+    if (conversation.messages.length > 0) {
+      socket.emit("read-message", conversation.messages[0]);
     }
   };
 
   render() {
     const { classes } = this.props;
     const otherUser = this.props.conversation.otherUser;
-    const { messages } = this.props.conversation
-    
-    let unread = messages.reduce((acc, message) => {
-      return message.senderId === otherUser.id && !message.isRead ? acc + 1 : acc + 0 
-    }, 0)
-    
+    const { messages } = this.props.conversation;
+
+    let unreads = messages.reduce((acc, message) => {
+      return message.senderId === otherUser.id && !message.isRead
+        ? acc + 1
+        : acc + 0;
+    }, 0);
+
+    const { typingUsers } = this.props.otherUsers;
+
+    let isTyping = false;
+
+    if (otherUser.id in typingUsers) {
+      isTyping = typingUsers[otherUser.id];
+    }
+
     return (
       <Box
         onClick={() => this.handleClick(this.props.conversation)}
@@ -63,10 +76,11 @@ class Chat extends Component {
           online={otherUser.online}
           sidebar={true}
         />
-        <ChatContent conversation={this.props.conversation} />
-        {unread !== 0 &&
-          <Box className={classes.unreadBubble}>{unread}</Box>
-        }
+        <ChatContent
+          conversation={this.props.conversation}
+          isTyping={isTyping}
+        />
+        {unreads !== 0 && <Box className={classes.unreadBubble}>{unreads}</Box>}
       </Box>
     );
   }
@@ -77,11 +91,19 @@ const mapDispatchToProps = (dispatch) => {
     setActiveChat: (id) => {
       dispatch(setActiveChat(id));
     },
-    setMessagesAsRead: (conversationId) =>{
-      dispatch(setMessagesAsRead(conversationId))
-    } 
+    setMessagesAsRead: (conversationId) => {
+      dispatch(setMessagesAsRead(conversationId));
+    },
   };
-
 };
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(Chat));
+const mapStateToProps = (state) => {
+  return {
+    otherUsers: state.otherUsers,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Chat));

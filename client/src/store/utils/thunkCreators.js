@@ -72,9 +72,8 @@ export const logout = (id) => async (dispatch) => {
 export const fetchConversations = () => async (dispatch) => {
   try {
     const { data: conversations } = await axios.get("/api/conversations");
-    const messages = {};
-    for (let conversation of conversations){
-      for (let message of conversation.messages){
+    for (let conversation of conversations) {
+      for (let message of conversation.messages) {
         message.isRead = true;
       }
     }
@@ -123,5 +122,3 @@ export const searchUsers = (searchTerm) => async (dispatch) => {
     console.error(error);
   }
 };
-
-

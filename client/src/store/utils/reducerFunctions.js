@@ -24,32 +24,32 @@ export const addMessageToStore = (state, payload) => {
   });
 };
 
-const defaultConversation = {
-  id: 0,
-  latestMessageText: "",
-  messages: [],
-  otherUser: {},
-  user2: null
-}
+// const defaultConversation = {
+//   id: 0,
+//   latestMessageText: "",
+//   messages: [],
+//   otherUser: {},
+//   user2: null
+// }
 
 export const messagesSetAsRead = (state = [], conversationId) => {
-  const conversation = state.find(c => c.id === conversationId)
-  if (conversation){
-    const messages = [...conversation.messages]
-    for (let message of messages){
-      message.isRead = true
+  const conversation = state.find((c) => c.id === conversationId);
+  if (conversation) {
+    const messages = [...conversation.messages];
+    for (let message of messages) {
+      message.isRead = true;
     }
-    const convo = {...conversation, messages}
-    const stateUpdated = []
-    state.map(conv => {
-      if(conv.id !== convo.id){
-        stateUpdated.push(conv)
+    const convo = { ...conversation, messages };
+    const stateUpdated = [];
+    state.forEach((conv) => {
+      if (conv.id !== convo.id) {
+        stateUpdated.push(conv);
       }
-    })
-    return [convo, ...stateUpdated]
+    });
+    return [convo, ...stateUpdated];
   }
-  return state
-}
+  return state;
+};
 
 export const addOnlineUserToStore = (state, id) => {
   return state.map((convo) => {
@@ -108,5 +108,3 @@ export const addNewConvoToStore = (state, recipientId, message) => {
     }
   });
 };
-
-
