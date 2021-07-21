@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
-import { Input, Header, Messages } from "./index";
+import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 import { connect } from "react-redux";
 import store from "../../store";
+import { Header, Input, Messages } from "./index";
 import OtherUserTypingBubble from "./OtherUserTypingBubble";
 
 const useStyles = makeStyles(() => ({
@@ -26,15 +26,21 @@ const ActiveChat = (props) => {
   const classes = useStyles();
   const { user } = props;
   const conversation = props.conversation || {};
+  const otherUser = conversation.otherUser
+  
+  let isTyping = false
 
-  const { typingUsers } = props.otherUsers;
-
-  let isTyping = false;
-
-  if ("otherUser" in conversation && conversation.otherUser.id in typingUsers) {
-    isTyping = typingUsers[conversation.otherUser.id];
+  const {typingUsers} = store.getState().otherUsers;
+  if (conversation && otherUser){
+    if (otherUser.id in typingUsers){
+      const typingUser = typingUsers[otherUser.id]
+      isTyping = typingUser.isTyping 
+    }
   }
-
+  // if (conversation in typingUsers){
+  //   isTyping = true    
+  // }
+  
   return (
     <Box className={classes.root}>
       {conversation.otherUser && (
@@ -66,7 +72,7 @@ const ActiveChat = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    otherUsers: state.otherUsers,
+    typingUsers: state.otherUsers.typingUsers,
     user: state.user,
     conversation:
       state.conversations &&

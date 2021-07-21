@@ -72,11 +72,6 @@ export const logout = (id) => async (dispatch) => {
 export const fetchConversations = () => async (dispatch) => {
   try {
     const { data: conversations } = await axios.get("/api/conversations");
-    for (let conversation of conversations) {
-      for (let message of conversation.messages) {
-        message.isRead = true;
-      }
-    }
     dispatch(gotConversations(conversations));
   } catch (error) {
     console.error(error);
@@ -87,6 +82,15 @@ const saveMessage = async (body) => {
   const { data } = await axios.post("/api/messages", body);
   return data;
 };
+
+export const updateMessagesToRead = async (messageIds = []) => {
+  try{
+    const { data } = await axios.put("/api/messages/setRead", messageIds);
+    return data
+  }catch(error){
+    console.log(error.response)
+  }
+}
 
 const sendMessage = (data, body) => {
   socket.emit("new-message", {

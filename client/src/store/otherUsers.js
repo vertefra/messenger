@@ -7,19 +7,24 @@ const SET_USER_TYPING_STATE = "SET_USER_TYPING_STATE";
 // Reducing function
 const setUserTypingState = (
   state = defaultOtherUsersState,
-  payload = { userId: 0, isTyping: false }
+  payload = { userId: 0, currentConversation: undefined, isTyping: false }
 ) => {
   const otherUsersState = { ...state };
-  const { typingUsers } = otherUsersState;
-  const { userId, isTyping } = payload;
-  typingUsers[userId] = isTyping;
-  return otherUsersState;
+  let { typingUsers } = otherUsersState;
+  const { userId, currentConversation, isTyping } = payload;
+  typingUsers = {...typingUsers, [userId]: { isTyping, currentConversation }};
+  otherUsersState.typingUsers = typingUsers;
+  return otherUsersState
 };
 
-export const setUserIsTyping = (userId = 0, isTyping = false) => {
+export const setUserIsTyping = (
+  userId = 0,
+  currentConversation = undefined,
+  isTyping = false
+) => {
   return {
     type: SET_USER_TYPING_STATE,
-    payload: { userId, isTyping },
+    payload: { userId, currentConversation, isTyping },
   };
 };
 

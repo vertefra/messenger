@@ -58,11 +58,11 @@ class Chat extends Component {
     }, 0);
 
     const { typingUsers } = this.props.otherUsers;
-
     let isTyping = false;
 
     if (otherUser.id in typingUsers) {
-      isTyping = typingUsers[otherUser.id];
+      const typingUser = typingUsers[otherUser.id]
+      isTyping = typingUser.isTyping;
     }
 
     return (

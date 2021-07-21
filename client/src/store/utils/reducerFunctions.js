@@ -1,3 +1,5 @@
+import { updateMessagesToRead } from "./thunkCreators";
+
 export const addMessageToStore = (state, payload) => {
   const { message, sender } = payload;
   // if sender isn't null, that means the message needs to be put in a brand new convo
@@ -36,9 +38,14 @@ export const messagesSetAsRead = (state = [], conversationId) => {
   const conversation = state.find((c) => c.id === conversationId);
   if (conversation) {
     const messages = [...conversation.messages];
+    const messageIds = []
     for (let message of messages) {
       message.isRead = true;
+      messageIds.push(message.id)
     }
+    ;(async ()=>{
+      await updateMessagesToRead(messageIds)
+    })()
     const convo = { ...conversation, messages };
     const stateUpdated = [];
     state.forEach((conv) => {

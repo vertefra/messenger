@@ -28,11 +28,15 @@ socket.on("connect", () => {
     }
   });
 
-  socket.on("typing", (userId) => {
-    store.dispatch(setUserIsTyping(userId, true));
-    setTimeout(() => {
-      store.dispatch(setUserIsTyping(userId, false));
-    }, 3000);
+  socket.on("typing", (data) => {
+    const { userId, currentConversation } = data
+    const { username } = store.getState().user;
+    if (currentConversation === username){
+      store.dispatch(setUserIsTyping(userId, currentConversation, true));
+      setTimeout(() => {
+        store.dispatch(setUserIsTyping(userId, undefined, false));
+      }, 3000);
+    }
   });
 
   socket.on("new-message", (data) => {
