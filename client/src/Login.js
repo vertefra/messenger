@@ -11,6 +11,15 @@ import {
 } from "@material-ui/core";
 import { login } from "./store/utils/thunkCreators";
 
+import bgImage from './assets/bg-img.png'
+
+const styles = {
+  landingBox: {
+    backgoundImage: `url(${bgImage})`
+  }
+}
+
+
 const Login = (props) => {
   const history = useHistory();
   const { user, login } = props;
@@ -28,41 +37,44 @@ const Login = (props) => {
   }
 
   return (
-    <Grid container justify="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Button onClick={() => history.push("/register")}>Register</Button>
+      <Grid container wrap="wrap">
+        <Grid item justify="center">
+          <Box>Here my pic</Box>
         </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
-            <Grid>
-              <FormControl margin="normal" required>
-                <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
-                />
-              </FormControl>
-            </Grid>
-            <FormControl margin="normal" required>
-              <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
-              />
-            </FormControl>
-            <Grid>
-              <Button type="submit" variant="contained" size="large">
-                Login
-              </Button>
-            </Grid>
+        <Grid item justify="center">
+          <Grid container item justify="flex-end">
+            <Typography>Don't have an account?</Typography>
+            <Button onClick={() => history.push("/register")}>Register</Button>
           </Grid>
-        </form>
-      </Box>
-    </Grid>
+            <form onSubmit={handleLogin}>
+              <Grid>
+                <Grid>
+                  <FormControl margin="normal" required>
+                    <TextField
+                      aria-label="username"
+                      label="Username"
+                      name="username"
+                      type="text"
+                    />
+                  </FormControl>
+                </Grid>
+                <FormControl margin="normal" required>
+                  <TextField
+                    label="password"
+                    aria-label="password"
+                    type="password"
+                    name="password"
+                  />
+                </FormControl>
+                <Grid>
+                  <Button type="submit" variant="contained" size="large">
+                    Login
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+        </Grid>
+      </Grid>
   );
 };
 

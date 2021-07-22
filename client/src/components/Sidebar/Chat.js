@@ -1,11 +1,11 @@
-import React, { Component, useEffect, useState } from "react";
 import { Box } from "@material-ui/core";
-import { BadgeAvatar, ChatContent } from "../Sidebar";
 import { withStyles } from "@material-ui/core/styles";
-import { setActiveChat } from "../../store/activeConversation";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { setMessagesAsRead } from "../../store/conversations";
 import socket from "../../socket";
+import { setActiveChat } from "../../store/activeConversation";
+import { setMessagesAsRead } from "../../store/conversations";
+import { BadgeAvatar, ChatContent } from "../Sidebar";
 
 const styles = {
   unreadBubble: {
@@ -13,7 +13,7 @@ const styles = {
     height: "15px",
     fontSize: "12px",
     color: "white",
-    fontWeight: 900,
+    fontWeight: 'bold',
     backgroundColor: "#3A8DFF",
     display: "flex",
     justifyContent: "center",
