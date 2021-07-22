@@ -12,9 +12,9 @@ const setUserTypingState = (
   const otherUsersState = { ...state };
   let { typingUsers } = otherUsersState;
   const { userId, currentConversation, isTyping } = payload;
-  typingUsers = {...typingUsers, [userId]: { isTyping, currentConversation }};
+  typingUsers = { ...typingUsers, [userId]: { isTyping, currentConversation } };
   otherUsersState.typingUsers = typingUsers;
-  return otherUsersState
+  return otherUsersState;
 };
 
 export const setUserIsTyping = (

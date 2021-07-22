@@ -27,12 +27,10 @@ class Input extends Component {
   }
 
   handleChange = (event) => {
-    socket.emit("typing", 
-      { 
-        userId: this.props.user.id,
-        currentConversation: this.props.activeConversation
-      }
-    );
+    socket.emit("typing", {
+      userId: this.props.user.id,
+      currentConversation: this.props.activeConversation,
+    });
     this.setState({
       text: event.target.value,
     });
@@ -78,7 +76,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     conversations: state.conversations,
-    activeConversation: state.activeConversation
+    activeConversation: state.activeConversation,
   };
 };
 

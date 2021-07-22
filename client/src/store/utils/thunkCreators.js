@@ -84,13 +84,13 @@ const saveMessage = async (body) => {
 };
 
 export const updateMessagesToRead = async (messageIds = []) => {
-  try{
+  try {
     const { data } = await axios.put("/api/messages/setRead", messageIds);
-    return data
-  }catch(error){
-    console.log(error.response)
+    return data;
+  } catch (error) {
+    console.log(error.response);
   }
-}
+};
 
 const sendMessage = (data, body) => {
   socket.emit("new-message", {

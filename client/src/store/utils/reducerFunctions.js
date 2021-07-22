@@ -38,14 +38,14 @@ export const messagesSetAsRead = (state = [], conversationId) => {
   const conversation = state.find((c) => c.id === conversationId);
   if (conversation) {
     const messages = [...conversation.messages];
-    const messageIds = []
+    const messageIds = [];
     for (let message of messages) {
       message.isRead = true;
-      messageIds.push(message.id)
+      messageIds.push(message.id);
     }
-    ;(async ()=>{
-      await updateMessagesToRead(messageIds)
-    })()
+    (async () => {
+      await updateMessagesToRead(messageIds);
+    })();
     const convo = { ...conversation, messages };
     const stateUpdated = [];
     state.forEach((conv) => {

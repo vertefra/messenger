@@ -29,9 +29,9 @@ socket.on("connect", () => {
   });
 
   socket.on("typing", (data) => {
-    const { userId, currentConversation } = data
+    const { userId, currentConversation } = data;
     const { username } = store.getState().user;
-    if (currentConversation === username){
+    if (currentConversation === username) {
       store.dispatch(setUserIsTyping(userId, currentConversation, true));
       setTimeout(() => {
         store.dispatch(setUserIsTyping(userId, undefined, false));

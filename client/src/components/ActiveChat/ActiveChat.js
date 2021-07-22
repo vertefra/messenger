@@ -26,21 +26,18 @@ const ActiveChat = (props) => {
   const classes = useStyles();
   const { user } = props;
   const conversation = props.conversation || {};
-  const otherUser = conversation.otherUser
-  
-  let isTyping = false
+  const otherUser = conversation.otherUser;
 
-  const {typingUsers} = store.getState().otherUsers;
-  if (conversation && otherUser){
-    if (otherUser.id in typingUsers){
-      const typingUser = typingUsers[otherUser.id]
-      isTyping = typingUser.isTyping 
+  let isTyping = false;
+
+  const { typingUsers } = store.getState().otherUsers;
+  if (conversation && otherUser) {
+    if (otherUser.id in typingUsers) {
+      const typingUser = typingUsers[otherUser.id];
+      isTyping = typingUser.isTyping;
     }
   }
-  // if (conversation in typingUsers){
-  //   isTyping = true    
-  // }
-  
+
   return (
     <Box className={classes.root}>
       {conversation.otherUser && (

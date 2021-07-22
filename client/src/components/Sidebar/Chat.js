@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Box } from "@material-ui/core";
 import { BadgeAvatar, ChatContent } from "../Sidebar";
 import { withStyles } from "@material-ui/core/styles";
@@ -33,58 +33,58 @@ const styles = {
   },
 };
 
-class Chat extends Component {
-  handleClick = async (conversation) => {
+const Chat = (props) => {
+  const handleClick = async (conversation) => {
     conversation.messages = conversation.messages || [];
 
-    await this.props.setMessagesAsRead(conversation.id);
+    await props.setMessagesAsRead(conversation.id);
 
-    await this.props.setActiveChat(conversation.otherUser.username);
+    await props.setActiveChat(conversation.otherUser.username);
 
     if (conversation.messages.length > 0) {
       socket.emit("read-message", conversation.messages[0]);
     }
   };
 
-  render() {
-    const { classes } = this.props;
-    const otherUser = this.props.conversation.otherUser;
-    const { messages } = this.props.conversation;
-
-    let unreads = messages.reduce((acc, message) => {
+  const [unreads, setUnread] = useState(0)
+  const { classes, activeConversation  } = props;
+  const otherUser = props.conversation.otherUser;
+  const { messages } = props.conversation;
+  
+  useEffect(() => {
+    const unreadsFound = messages.reduce((acc, message) => {
       return message.senderId === otherUser.id && !message.isRead
         ? acc + 1
         : acc + 0;
     }, 0);
+    setUnread(unreadsFound)
+  }, [messages.length, activeConversation])
 
-    const { typingUsers } = this.props.otherUsers;
-    let isTyping = false;
 
-    if (otherUser.id in typingUsers) {
-      const typingUser = typingUsers[otherUser.id]
-      isTyping = typingUser.isTyping;
-    }
+  const { typingUsers } = props.otherUsers;
+  let isTyping = false;
 
-    return (
-      <Box
-        onClick={() => this.handleClick(this.props.conversation)}
-        className={classes.root}
-      >
-        <BadgeAvatar
-          photoUrl={otherUser.photoUrl}
-          username={otherUser.username}
-          online={otherUser.online}
-          sidebar={true}
-        />
-        <ChatContent
-          conversation={this.props.conversation}
-          isTyping={isTyping}
-        />
-        {unreads !== 0 && <Box className={classes.unreadBubble}>{unreads}</Box>}
-      </Box>
-    );
+  if (otherUser.id in typingUsers) {
+    const typingUser = typingUsers[otherUser.id];
+    isTyping = typingUser.isTyping;
   }
-}
+
+  return (
+    <Box
+      onClick={() => handleClick(props.conversation)}
+      className={classes.root}
+    >
+      <BadgeAvatar
+        photoUrl={otherUser.photoUrl}
+        username={otherUser.username}
+        online={otherUser.online}
+        sidebar={true}
+      />
+      <ChatContent conversation={props.conversation} isTyping={isTyping} />
+      {unreads !== 0 && <Box className={classes.unreadBubble}>{unreads}</Box>}
+    </Box>
+  );
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -100,6 +100,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     otherUsers: state.otherUsers,
+    activeConversation: state.activeConversation
   };
 };
 
