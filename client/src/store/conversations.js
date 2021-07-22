@@ -68,11 +68,13 @@ export const addConversation = (recipientId, newMessage) => {
     payload: { recipientId, newMessage },
   };
 };
-
-export const setMessagesAsRead = (conversationId) => {
+// we care about conversationId and messageId
+// messageId is the lastmessage read
+export const setMessagesAsRead = (message) => {
+  const { conversationId, id: messageId } = message
   return {
     type: SET_MESSAGES_AS_READ,
-    conversationId,
+    payload: { conversationId, messageId },
   };
 };
 
@@ -81,7 +83,7 @@ export const setMessagesAsRead = (conversationId) => {
 const reducer = (state = [], action) => {
   switch (action.type) {
     case SET_MESSAGES_AS_READ:
-      return messagesSetAsRead(state, action.conversationId);
+      return messagesSetAsRead(state, action.payload);
     case GET_CONVERSATIONS:
       return action.conversations;
     case SET_MESSAGE:

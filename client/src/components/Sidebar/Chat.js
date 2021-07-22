@@ -37,12 +37,13 @@ const Chat = (props) => {
   const handleClick = async (conversation) => {
     conversation.messages = conversation.messages || [];
 
-    await props.setMessagesAsRead(conversation.id);
 
     await props.setActiveChat(conversation.otherUser.username);
 
     if (conversation.messages.length > 0) {
-      socket.emit("read-message", conversation.messages[0]);
+      const lastMessage = conversation.messages[conversation.messages.length - 1]
+      await props.setMessagesAsRead(lastMessage);
+      socket.emit("read-message", lastMessage);
     }
   };
 
@@ -59,7 +60,6 @@ const Chat = (props) => {
     }, 0);
     setUnread(unreadsFound)
   }, [messages.length, activeConversation])
-
 
   const { typingUsers } = props.otherUsers;
   let isTyping = false;

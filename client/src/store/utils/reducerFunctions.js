@@ -34,13 +34,18 @@ export const addMessageToStore = (state, payload) => {
 //   user2: null
 // }
 
-export const messagesSetAsRead = (state = [], conversationId) => {
+export const messagesSetAsRead = (state = [], payload) => {
+  const { conversationId, messageId } = payload
   const conversation = state.find((c) => c.id === conversationId);
   if (conversation) {
     const messages = [...conversation.messages];
     const messageIds = [];
     for (let message of messages) {
       message.isRead = true;
+      message.lastRead = false;
+      if (message.id === messageId){
+        message.lastRead = true;
+      }
       messageIds.push(message.id);
     }
     (async () => {
