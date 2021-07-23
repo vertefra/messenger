@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { Box } from "@material-ui/core";
 import { BadgeAvatar, ChatContent } from "../Sidebar";
 import { withStyles } from "@material-ui/core/styles";
@@ -47,19 +47,25 @@ const Chat = (props) => {
     }
   };
 
-  const [unreads, setUnread] = useState(0)
+  // const [unreads, setUnread] = useState(0)
   const { classes, activeConversation  } = props;
   const otherUser = props.conversation.otherUser;
   const { messages } = props.conversation;
   
-  useEffect(() => {
-    const unreadsFound = messages.reduce((acc, message) => {
-      return message.senderId === otherUser.id && !message.isRead
-        ? acc + 1
-        : acc + 0;
-    }, 0);
-    setUnread(unreadsFound)
-  }, [messages.length, activeConversation])
+  // useEffect(() => {
+  //   const unreadsFound = messages.reduce((acc, message) => {
+  //     return message.senderId === otherUser.id && !message.isRead
+  //       ? acc + 1
+  //       : acc + 0;
+  //   }, 0);
+  //   setUnread(unreadsFound)
+  // }, [messages.length, activeConversation])
+
+  const unreads = useMemo(() => { 
+    return messages.reduce(
+      (acc, message) => (message.senderId === otherUser.id && !message.isRead ? acc + 1 : acc + 0), 0
+    )
+  })
 
   const { typingUsers } = props.otherUsers;
   let isTyping = false;

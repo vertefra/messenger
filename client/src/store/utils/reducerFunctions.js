@@ -26,14 +26,6 @@ export const addMessageToStore = (state, payload) => {
   });
 };
 
-// const defaultConversation = {
-//   id: 0,
-//   latestMessageText: "",
-//   messages: [],
-//   otherUser: {},
-//   user2: null
-// }
-
 export const messagesSetAsRead = (state = [], payload) => {
   const { conversationId, messageId } = payload
   const conversation = state.find((c) => c.id === conversationId);
