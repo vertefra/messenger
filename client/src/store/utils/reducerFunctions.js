@@ -1,3 +1,5 @@
+import { updateMessagesToRead } from "./thunkCreators";
+
 export const addMessageToStore = (state, payload) => {
   const { message, sender } = payload;
   // if sender isn't null, that means the message needs to be put in a brand new convo
@@ -22,6 +24,35 @@ export const addMessageToStore = (state, payload) => {
       return convo;
     }
   });
+};
+
+export const messagesSetAsRead = (state = [], payload) => {
+  const { conversationId, messageId } = payload
+  const conversation = state.find((c) => c.id === conversationId);
+  if (conversation) {
+    const messages = [...conversation.messages];
+    const messageIds = [];
+    for (let message of messages) {
+      message.isRead = true;
+      message.lastRead = false;
+      if (message.id === messageId){
+        message.lastRead = true;
+      }
+      messageIds.push(message.id);
+    }
+    (async () => {
+      await updateMessagesToRead(messageIds);
+    })();
+    const convo = { ...conversation, messages };
+    const stateUpdated = [];
+    state.forEach((conv) => {
+      if (conv.id !== convo.id) {
+        stateUpdated.push(conv);
+      }
+    });
+    return [convo, ...stateUpdated];
+  }
+  return state;
 };
 
 export const addOnlineUserToStore = (state, id) => {
