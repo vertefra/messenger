@@ -1,14 +1,32 @@
-import React from "react";
-import { Box } from "@material-ui/core";
-import { SenderBubble, OtherUserBubble } from "../ActiveChat";
+import { Box, makeStyles } from "@material-ui/core";
 import moment from "moment";
-import store from "../../store";
+import React, { useEffect, useRef } from "react";
+import { OtherUserBubble, SenderBubble } from "../ActiveChat";
+
+const useStyles = makeStyles(()=>({
+  messages:{
+    height: "78vh",
+    overflowY: "scroll",
+    marginBottom: 95
+  }
+}))
+
 
 const Messages = (props) => {
   const { messages, otherUser, userId } = props;
+  const classes = useStyles()
+
+  const msgRef = useRef()
+  // scroll down to the last message
+  
+  useEffect(()=>{
+    if (msgRef.current) {
+      msgRef.current.scrollIntoView({ behaviour: "smooth" });
+    }
+  }, [messages.length])
 
   return (
-    <Box>
+    <Box className={classes.messages}>
       {messages.map((message, idx) => {
         const time = moment(message.createdAt).format("h:mm");
         // Checks if we are at the last message
@@ -31,6 +49,7 @@ const Messages = (props) => {
           />
         );
       })}
+      <div ref={msgRef}></div>
     </Box>
   );
 };

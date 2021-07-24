@@ -8,9 +8,15 @@ import { ActiveChat } from "./ActiveChat";
 import { logout, fetchConversations } from "../store/utils/thunkCreators";
 import { clearOnLogout } from "../store/index";
 
+const xsBreakPoint = 600
+
 const styles = {
   root: {
-    height: "97vh",
+    minHeight: "100vh",
+    overflowY: "hidden",
+    [`@media (max-width:${xsBreakPoint}px)`]: {
+      overflowY: "auto"
+    }
   },
 };
 
@@ -43,14 +49,14 @@ class Home extends Component {
     if (!this.props.user.id) {
       // If we were previously logged in, redirect to login instead of register
       if (this.state.isLoggedIn) return <Redirect to="/login" />;
-      return <Redirect to="/register" />;
+      return <Redirect to="/login" />;
     }
     return (
       <>
         {/* logout button will eventually be in a dropdown next to username */}
-        <Button className={classes.logout} onClick={this.handleLogout}>
+        {/* <Button className={classes.logout} onClick={this.handleLogout}>
           Logout
-        </Button>
+        </Button> */}
         <Grid container component="main" className={classes.root}>
           <CssBaseline />
           <SidebarContainer />

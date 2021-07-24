@@ -1,12 +1,12 @@
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
+import React, { useRef } from "react";
 import { connect } from "react-redux";
 import store from "../../store";
 import { Header, Input, Messages } from "./index";
 import OtherUserTypingBubble from "./OtherUserTypingBubble";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(({xsBreakPoint}) => ({
   root: {
     display: "flex",
     flexGrow: 8,
@@ -15,6 +15,10 @@ const useStyles = makeStyles(() => ({
   chatContainer: {
     marginLeft: 41,
     marginRight: 41,
+    [`@media (max-width:${xsBreakPoint}px)`]: {
+      marginLeft: 15,
+      marginRight: 15,
+    }, 
     display: "flex",
     flexDirection: "column",
     flexGrow: 1,
@@ -27,7 +31,7 @@ const ActiveChat = (props) => {
   const { user } = props;
   const conversation = props.conversation || {};
   const otherUser = conversation.otherUser;
-
+  
   let isTyping = false;
 
   const { typingUsers } = store.getState().otherUsers;

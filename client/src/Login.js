@@ -1,28 +1,29 @@
-import React from "react";
-import { Redirect, useHistory } from "react-router-dom";
-import { connect } from "react-redux";
 import {
-  Grid,
   Box,
-  Typography,
   Button,
-  FormControl,
-  TextField,
+  FormControl, Grid, makeStyles, Paper, TextField, Typography
 } from "@material-ui/core";
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { login } from "./store/utils/thunkCreators";
 
-import bgImage from './assets/bg-img.png'
 
-const styles = {
-  landingBox: {
-    backgoundImage: `url(${bgImage})`
-  }
-}
+const useStyles = makeStyles(({ formControll, navbar, submitButton, loginButton, loginBox, credentialsForm, paperButton }) =>({
+  navbar,
+  loginBox,
+  credentialsForm,
+  paperButton,
+  loginButton,
+  submitButton,
+  formControll
+})) 
 
 
 const Login = (props) => {
-  const history = useHistory();
   const { user, login } = props;
+
+  const classes = useStyles();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -36,29 +37,41 @@ const Login = (props) => {
     return <Redirect to="/home" />;
   }
 
+
   return (
-      <Grid container wrap="wrap">
-        <Grid item justify="center">
-          <Box>Here my pic</Box>
+    <Grid 
+      container
+      alignItems="flex-start"
+    >
+      <Grid container className={classes.loginBox} direction="column">
+        <Grid className={classes.navbar}>
+          <Typography>Don't have an account?</Typography>
+          <Paper className={classes.paperButton}>
+            <Button
+              className={classes.loginButton}
+              onClick={() => props.setPage("signup")}>
+                Signup
+              </Button>
+          </Paper>
         </Grid>
-        <Grid item justify="center">
-          <Grid container item justify="flex-end">
-            <Typography>Don't have an account?</Typography>
-            <Button onClick={() => history.push("/register")}>Register</Button>
-          </Grid>
-            <form onSubmit={handleLogin}>
+        <Grid>
+          <form onSubmit={handleLogin} className={classes.credentialsForm}>
+            <Grid xs={10} sm={8}>
+              <Typography variant="h1">
+                Welcome back!
+              </Typography>
               <Grid>
-                <Grid>
-                  <FormControl margin="normal" required>
-                    <TextField
-                      aria-label="username"
-                      label="Username"
-                      name="username"
-                      type="text"
-                    />
-                  </FormControl>
-                </Grid>
-                <FormControl margin="normal" required>
+                <FormControl margin="normal" required className={classes.formControll}>
+                  <TextField
+                    aria-label="username"
+                    label="Username"
+                    name="username"
+                    type="text"
+                  />
+                </FormControl>
+              </Grid>
+              <Grid>
+                <FormControl margin="normal" required className={classes.formControll}>
                   <TextField
                     label="password"
                     aria-label="password"
@@ -66,15 +79,17 @@ const Login = (props) => {
                     name="password"
                   />
                 </FormControl>
-                <Grid>
-                  <Button type="submit" variant="contained" size="large">
-                    Login
-                  </Button>
-                </Grid>
               </Grid>
-            </form>
+              <Grid container justifyContent="center">
+                <Button className={classes.submitButton} type="submit" variant="contained" size="large">
+                  Login
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
         </Grid>
       </Grid>
+    </Grid>
   );
 };
 

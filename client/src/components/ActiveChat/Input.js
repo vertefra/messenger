@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import { FormControl, FilledInput } from "@material-ui/core";
+import { FilledInput, FormControl } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { postMessage } from "../../store/utils/thunkCreators";
 import socket from "../../socket";
+import { postMessage } from "../../store/utils/thunkCreators";
 
 const styles = {
-  root: {
-    justifySelf: "flex-end",
-    marginTop: 15,
-  },
   input: {
     height: 70,
     backgroundColor: "#F4F6FA",
     borderRadius: 8,
     marginBottom: 20,
+    position: "absolute",
+    left: 0,
+    right: 10,
+    bottom: 0,
   },
 };
 
@@ -61,6 +61,7 @@ class Input extends Component {
           <FilledInput
             classes={{ root: classes.input }}
             disableUnderline
+            autoComplete=""
             placeholder="Type something..."
             value={this.state.text}
             name="text"

@@ -13,7 +13,7 @@ const styles = {
     height: "15px",
     fontSize: "12px",
     color: "white",
-    fontWeight: 'bold',
+    fontWeight: "bold",
     backgroundColor: "#3A8DFF",
     display: "flex",
     justifyContent: "center",
@@ -27,9 +27,7 @@ const styles = {
     marginBottom: 10,
     display: "flex",
     alignItems: "center",
-    "&:hover": {
-      cursor: "grab",
-    },
+    cursor: "pointer"
   },
 };
 
@@ -46,20 +44,19 @@ const Chat = (props) => {
     }
   };
 
-  const [unreads, setUnread] = useState(0)
-  const { classes, activeConversation  } = props;
+  const [unreads, setUnread] = useState(0);
+  const { classes, activeConversation } = props;
   const otherUser = props.conversation.otherUser;
   const { messages } = props.conversation;
-  
+
   useEffect(() => {
     const unreadsFound = messages.reduce((acc, message) => {
       return message.senderId === otherUser.id && !message.isRead
         ? acc + 1
         : acc + 0;
     }, 0);
-    setUnread(unreadsFound)
-  }, [messages.length, activeConversation])
-
+    setUnread(unreadsFound);
+  }, [messages.length, activeConversation]);
 
   const { typingUsers } = props.otherUsers;
   let isTyping = false;
@@ -100,7 +97,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     otherUsers: state.otherUsers,
-    activeConversation: state.activeConversation
+    activeConversation: state.activeConversation,
   };
 };
 

@@ -4,8 +4,10 @@
   "description": "A one-to-one realtime chat app.",
   "main": "index.js",
   "dependencies": {
+    "client": "file:client",
     "concurrently": "^6.2.0",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "server": "file:server"
   },
   "devDependencies": {},
   "scripts": {

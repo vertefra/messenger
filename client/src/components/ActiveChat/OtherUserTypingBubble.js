@@ -1,9 +1,9 @@
-import React from "react";
+import { Avatar, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Typography, Avatar, Badge } from "@material-ui/core";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+import React from "react";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(({ bubble, palette }) => ({
   root: {
     display: "flex",
   },
@@ -19,25 +19,22 @@ const useStyles = makeStyles(() => ({
     fontWeight: "bold",
     marginBottom: 5,
   },
-  bubble: {
-    backgroundImage: "linear-gradient(225deg, #6CC1FF 0%, #3A8DFF 100%)",
-    borderRadius: "0 10px 10px 10px",
-  },
   dots: {
     fontSize: 10,
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: palette.text.lightGrey,
     letterSpacing: 0.5,
     padding: 8,
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
   },
+  bubble
 }));
 
 const dotStyle = {
-  width: "20px",
-  margin: "4px",
+  width: "10px",
+  margin: "0 6px",
 };
 
 const OtherUserTypingBubble = (props) => {

@@ -4,20 +4,23 @@ import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { Search, Chat, CurrentUser } from "./index.js";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    paddingLeft: 21,
-    paddingRight: 21,
-    flexGrow: 1,
-  },
-  title: {
-    fontSize: 20,
-    letterSpacing: -0.29,
-    fontWeight: "bold",
-    marginTop: 32,
-    marginBottom: 15,
-  },
-}));
+const useStyles = makeStyles((theme) => {
+
+  return {
+    root: {
+      paddingLeft: 21,
+      paddingRight: 21,
+      flexGrow: 1,
+    },
+    title: {
+      fontSize: 20,
+      letterSpacing: -0.29,
+      fontWeight: "bold",
+      marginTop: 32,
+      marginBottom: 15,
+    },
+  };
+});
 
 const Sidebar = (props) => {
   const classes = useStyles();
