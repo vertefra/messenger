@@ -1,7 +1,8 @@
 import { createTheme } from "@material-ui/core";
 
-const xsBreakPoint = 600;
-const xsBreakPointH = 700;
+export const xsBreakPoint = 600;
+export const xsBreakPointH = 700;
+
 export const theme = createTheme({
   xsBreakPoint,
   typography: {

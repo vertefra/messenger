@@ -33,6 +33,7 @@ export const AccessPage = () => {
     <Grid container justifyContent="center">
       <Grid
         container
+        item
         alignItems="center"
         justifyContent="center"
         spacing={0}
@@ -52,10 +53,8 @@ export const AccessPage = () => {
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <img src={bubble} />
                 </div>
-                <Typography align="center">
-                  <h1 className={classes.hero}>
+                <Typography align="center" className={classes.hero}>
                     Converse with anyone in any language
-                  </h1>
                 </Typography>
               </Box>
             </Grid>

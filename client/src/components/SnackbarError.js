@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Close from "@material-ui/icons/Close";
 import React from "react";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   snackbar: {
     backgroundColor: "red",
     fontWeight: "bold",
@@ -13,8 +13,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SnackbarError = (props) => {
+export const SnackbarError = (props) => {
+  
   const classes = useStyles();
+  
   return (
     <Snackbar
       open={props.snackBarOpen}
@@ -41,5 +43,3 @@ const SnackbarError = (props) => {
     />
   );
 };
-
-export default SnackbarError;

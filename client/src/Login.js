@@ -65,7 +65,7 @@ const Login = (props) => {
         </Grid>
         <Grid>
           <form onSubmit={handleLogin} className={classes.credentialsForm}>
-            <Grid xs={10} sm={8}>
+            <Grid item xs={10} sm={8}>
               <Typography variant="h1">Welcome back!</Typography>
               <Grid>
                 <FormControl

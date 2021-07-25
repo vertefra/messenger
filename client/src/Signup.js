@@ -74,7 +74,7 @@ const Login = (props) => {
         </Grid>
         <Grid>
           <form onSubmit={handleRegister} className={classes.credentialsForm}>
-            <Grid xs={10} sm={8}>
+            <Grid item xs={10} sm={8}>
               <Typography variant="h1">Create an account</Typography>
               <Grid>
                 <FormControl margin="normal" className={classes.formControll}>
