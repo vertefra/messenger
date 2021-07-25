@@ -1,10 +1,10 @@
 import {
+  addMessageToStore,
   addNewConvoToStore,
   addOnlineUserToStore,
   addSearchedUsersToStore,
-  removeOfflineUserFromStore,
-  addMessageToStore,
   messagesSetAsRead,
+  removeOfflineUserFromStore,
 } from "./utils/reducerFunctions";
 
 // ACTIONS

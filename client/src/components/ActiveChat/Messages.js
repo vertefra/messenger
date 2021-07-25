@@ -3,27 +3,26 @@ import moment from "moment";
 import React, { useEffect, useRef } from "react";
 import { OtherUserBubble, SenderBubble } from "../ActiveChat";
 
-const useStyles = makeStyles(()=>({
-  messages:{
+const useStyles = makeStyles(() => ({
+  messages: {
     height: "78vh",
     overflowY: "scroll",
-    marginBottom: 95
-  }
-}))
-
+    marginBottom: 95,
+  },
+}));
 
 const Messages = (props) => {
   const { messages, otherUser, userId } = props;
-  const classes = useStyles()
+  const classes = useStyles();
 
-  const msgRef = useRef()
+  const msgRef = useRef();
   // scroll down to the last message
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     if (msgRef.current) {
       msgRef.current.scrollIntoView({ behaviour: "smooth" });
     }
-  }, [messages.length])
+  }, [messages.length]);
 
   return (
     <Box className={classes.messages}>

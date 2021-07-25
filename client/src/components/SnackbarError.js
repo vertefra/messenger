@@ -1,7 +1,7 @@
-import React from "react";
 import { Button, Snackbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Close from "@material-ui/icons/Close";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   snackbar: {

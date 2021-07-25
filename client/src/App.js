@@ -1,11 +1,10 @@
-import React from "react";
 import { MuiThemeProvider } from "@material-ui/core";
-import { BrowserRouter } from "react-router-dom";
+import React from "react";
 import { Provider } from "react-redux";
-import store from "./store";
-
-import { theme } from "./themes/theme";
+import { BrowserRouter } from "react-router-dom";
 import Routes from "./routes";
+import store from "./store";
+import { theme } from "./themes/theme";
 
 function App() {
   return (

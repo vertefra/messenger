@@ -2,7 +2,7 @@ import { Avatar, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 
-const useStyles = makeStyles(({palette, bubble}) => ({
+const useStyles = makeStyles(({ palette, bubble }) => ({
   root: {
     display: "flex",
   },
@@ -25,7 +25,7 @@ const useStyles = makeStyles(({palette, bubble}) => ({
     letterSpacing: -0.2,
     padding: 8,
   },
-  bubble
+  bubble,
 }));
 
 const OtherUserBubble = (props) => {

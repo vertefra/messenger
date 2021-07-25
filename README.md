@@ -10,10 +10,11 @@ You can start a postgres server using the provided docker image.
 
 ```bash
  sudo docker build -t  messenger-db .
- ```
+```
 
- - Run the container
- ```
+- Run the container
+
+```
 sudo docker run -p 0.0.0.0:5432:5432/tcp messenger-db
 ```
 
@@ -23,17 +24,20 @@ A database called `messenger` will be automatically created with your pg server.
 
 ### Install dependencies
 
-In the root folder 
+In the root folder
+
 ```
 npm install
 ```
 
 In the client folder
+
 ```
 npm install
 ```
 
 and in the server folder
+
 ```
 npm install
 ```
@@ -49,9 +53,7 @@ npm run seed
 ### Start the application
 
 In the root folder
+
 ```
 npm run dev
 ```
-
-
-

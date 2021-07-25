@@ -27,7 +27,7 @@ const styles = {
     marginBottom: 10,
     display: "flex",
     alignItems: "center",
-    cursor: "pointer"
+    cursor: "pointer",
   },
 };
 

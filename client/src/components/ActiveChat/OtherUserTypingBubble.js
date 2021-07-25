@@ -29,7 +29,7 @@ const useStyles = makeStyles(({ bubble, palette }) => ({
     justifyContent: "space-evenly",
     alignItems: "center",
   },
-  bubble
+  bubble,
 }));
 
 const dotStyle = {

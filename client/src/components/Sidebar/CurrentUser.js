@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import { Box, Menu, MenuItem, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { connect, useDispatch } from "react-redux";
-import { BadgeAvatar } from "./index";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import React, { useState } from "react";
+import { connect, useDispatch } from "react-redux";
 import { logout } from "../../store/utils/thunkCreators";
+import { BadgeAvatar } from "./index";
 
 const useStyles = makeStyles(({ menuItem }) => ({
   root: {
@@ -32,29 +32,29 @@ const useStyles = makeStyles(({ menuItem }) => ({
     opacity: 0.5,
     cursor: "pointer",
   },
-  menuItem
+  menuItem,
 }));
 
 const CurrentUser = (props) => {
   const classes = useStyles();
   const user = props.user || {};
-  const [anchorEl, setAnchorEl] = useState(null)
-  const dispatch = useDispatch()
+  const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
 
   const handleMenuClick = (ev) => {
-    if (ev.currentTarget.id = 'logout-item'){
-       dispatch(logout(props.user.id))
+    if ((ev.currentTarget.id = "logout-item")) {
+      dispatch(logout(props.user.id));
     }
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   const handleClick = (evt) => {
     setAnchorEl(evt.currentTarget);
-  }
+  };
 
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   return (
     <Box className={classes.root}>
@@ -63,7 +63,7 @@ const CurrentUser = (props) => {
         <Typography className={classes.username}>{user.username}</Typography>
         <MoreHorizIcon
           classes={{ root: classes.ellipsis }}
-          onClick={(evt)=> handleClick(evt)}
+          onClick={(evt) => handleClick(evt)}
         />
         <Menu
           id="user-menu"
@@ -72,10 +72,12 @@ const CurrentUser = (props) => {
           onClose={handleClose}
         >
           <MenuItem
-            onClick={(evt)=>handleMenuClick(evt)}
+            onClick={(evt) => handleMenuClick(evt)}
             id="logout-item"
             className={classes.menuItem}
-          >Logout</MenuItem>
+          >
+            Logout
+          </MenuItem>
         </Menu>
       </Box>
     </Box>

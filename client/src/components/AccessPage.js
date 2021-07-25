@@ -1,10 +1,15 @@
-import { Box, CardMedia, Grid, Grow, makeStyles, Typography } from "@material-ui/core";
+import {
+  Box,
+  CardMedia,
+  Grid,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import React, { useState } from "react";
 import bgImage from "../assets/bg-img.png";
 import bubble from "../assets/bubble.svg";
 import Login from "../Login";
 import Signup from "../Signup";
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   overlay: {
@@ -14,9 +19,9 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
     opacity: "85%",
   },
   bgImage: {
-    minHeight: "100vh"
+    minHeight: "100vh",
   },
-  hero: typography.hero
+  hero: typography.hero,
 }));
 
 export const AccessPage = () => {
@@ -26,7 +31,7 @@ export const AccessPage = () => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid 
+      <Grid
         container
         alignItems="center"
         justifyContent="center"
@@ -36,18 +41,21 @@ export const AccessPage = () => {
         lg={10}
       >
         <Grid item sm={5} xs={12}>
-          <CardMedia image={bgImage}  className={classes.bgImage}>
+          <CardMedia image={bgImage} className={classes.bgImage}>
             <Grid
               container
               alignItems="center"
-              justifyContent="center" 
-              className={classes.overlay}>
+              justifyContent="center"
+              className={classes.overlay}
+            >
               <Box classes={classes.hero} justifyContent="center">
-                <div style={{ display: "flex", justifyContent:"center"}}>
-                  <img src={bubble}/>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <img src={bubble} />
                 </div>
                 <Typography align="center">
-                  <h1 className={classes.hero}>Converse with anyone in any language</h1>
+                  <h1 className={classes.hero}>
+                    Converse with anyone in any language
+                  </h1>
                 </Typography>
               </Box>
             </Grid>

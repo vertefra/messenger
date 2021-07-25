@@ -1,7 +1,7 @@
 import { createTheme } from "@material-ui/core";
 
-const xsBreakPoint = 600
-const xsBreakPointH = 700
+const xsBreakPoint = 600;
+const xsBreakPointH = 700;
 export const theme = createTheme({
   xsBreakPoint,
   typography: {
@@ -20,10 +20,10 @@ export const theme = createTheme({
       margin: 0,
       [`@media (max-width:${xsBreakPoint}px)`]: {
         fontSize: 24,
-        textAlign: "center"
+        textAlign: "center",
       },
       [`@media (max-height:${xsBreakPointH}px)`]: {
-        fontSize: 22
+        fontSize: 22,
       },
     },
     hero: {
@@ -34,7 +34,7 @@ export const theme = createTheme({
       [`@media (max-height:${xsBreakPointH}px)`]: {
         fontSize: 20,
       },
-    }
+    },
   },
   loginBox: {
     position: "relative",
@@ -49,19 +49,18 @@ export const theme = createTheme({
     width: "35%",
     height: "4rem",
     [`@media (max-width:${xsBreakPoint}px)`]: {
-      margin: 15
+      margin: 15,
     },
     [`@media (max-height:${xsBreakPointH}px)`]: {
       margin: 5,
       width: "25%",
-      height: "2.5rem"
+      height: "2.5rem",
     },
-    
   },
   loginButton: {
     color: "#3A8DFF",
     width: "100%",
-    height: "100%"
+    height: "100%",
   },
   navbar: {
     width: "100%",
@@ -76,7 +75,7 @@ export const theme = createTheme({
     display: "flex",
     justifyContent: "center",
     [`@media (max-width:${xsBreakPoint}px)`]: {
-      marginTop:  30
+      marginTop: 30,
     },
     [`@media (max-height:${xsBreakPointH}px)`]: {
       fontSize: 12,
@@ -117,11 +116,11 @@ export const theme = createTheme({
     text: {
       secondary: "#BECCE2",
       lightGrey: "#FFFFFF",
-      red: "red"
-    }
+      red: "red",
+    },
   },
   menuItem: {
-    minWidth: 200
+    minWidth: 200,
   },
   bubble: {
     borderRadius: "0 10px 10px 10px",

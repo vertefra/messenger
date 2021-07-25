@@ -1,10 +1,10 @@
 import io from "socket.io-client";
 import store from "./store";
 import {
-  setNewMessage,
-  removeOfflineUser,
   addOnlineUser,
+  removeOfflineUser,
   setMessagesAsRead,
+  setNewMessage,
 } from "./store/conversations";
 import { setUserIsTyping } from "./store/otherUsers";
 

@@ -1,11 +1,10 @@
-import React from "react";
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 import { connect } from "react-redux";
-import { Search, Chat, CurrentUser } from "./index.js";
+import { Chat, CurrentUser, Search } from "./index.js";
 
 const useStyles = makeStyles((theme) => {
-
   return {
     root: {
       paddingLeft: 21,

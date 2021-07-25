@@ -1,22 +1,22 @@
-import React, { Component } from "react";
+import { CssBaseline, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Grid, CssBaseline, Button } from "@material-ui/core";
-import { SidebarContainer } from "./Sidebar";
-import { ActiveChat } from "./ActiveChat";
-import { logout, fetchConversations } from "../store/utils/thunkCreators";
+import { Redirect } from "react-router-dom";
 import { clearOnLogout } from "../store/index";
+import { fetchConversations, logout } from "../store/utils/thunkCreators";
+import { ActiveChat } from "./ActiveChat";
+import { SidebarContainer } from "./Sidebar";
 
-const xsBreakPoint = 600
+const xsBreakPoint = 600;
 
 const styles = {
   root: {
     minHeight: "100vh",
     overflowY: "hidden",
     [`@media (max-width:${xsBreakPoint}px)`]: {
-      overflowY: "auto"
-    }
+      overflowY: "auto",
+    },
   },
 };
 
