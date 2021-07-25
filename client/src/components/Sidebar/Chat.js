@@ -1,6 +1,6 @@
 import { Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { default as React, default as React, useMemo } from "react";
+import React, { useMemo } from "react";
 import { connect } from "react-redux";
 import socket from "../../socket";
 import { setActiveChat } from "../../store/activeConversation";
@@ -35,26 +35,30 @@ const Chat = (props) => {
   const handleClick = async (conversation) => {
     conversation.messages = conversation.messages || [];
 
-
     await props.setActiveChat(conversation.otherUser.username);
 
     if (conversation.messages.length > 0) {
-      const lastMessage = conversation.messages[conversation.messages.length - 1]
+      const lastMessage =
+        conversation.messages[conversation.messages.length - 1];
       await props.setMessagesAsRead(lastMessage);
       socket.emit("read-message", lastMessage);
     }
   };
 
   // const [unreads, setUnread] = useState(0)
-  const { classes, activeConversation  } = props;
+  const { classes } = props;
   const otherUser = props.conversation.otherUser;
   const { messages } = props.conversation;
 
-  const unreads = useMemo(() => { 
+  const unreads = useMemo(() => {
     return messages.reduce(
-      (acc, message) => (message.senderId === otherUser.id && !message.isRead ? acc + 1 : acc + 0), 0
-    )
-  })
+      (acc, message) =>
+        message.senderId === otherUser.id && !message.isRead
+          ? acc + 1
+          : acc + 0,
+      0
+    );
+  }, [messages, otherUser]);
 
   const { typingUsers } = props.otherUsers;
   let isTyping = false;

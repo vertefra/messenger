@@ -71,7 +71,7 @@ export const addConversation = (recipientId, newMessage) => {
 // we care about conversationId and messageId
 // messageId is the lastmessage read
 export const setMessagesAsRead = (message) => {
-  const { conversationId, id: messageId } = message
+  const { conversationId, id: messageId } = message;
   return {
     type: SET_MESSAGES_AS_READ,
     payload: { conversationId, messageId },
