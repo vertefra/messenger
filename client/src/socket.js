@@ -24,7 +24,7 @@ socket.on("connect", () => {
   socket.on("read-message", (message) => {
     const { id: userId } = store.getState().user;
     if (userId === message?.senderId) {
-      store.dispatch(setMessagesAsRead(message.conversationId));
+      store.dispatch(setMessagesAsRead(message));
     }
   });
 

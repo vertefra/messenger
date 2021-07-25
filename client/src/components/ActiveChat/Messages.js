@@ -28,16 +28,13 @@ const Messages = (props) => {
     <Box className={classes.messages}>
       {messages.map((message, idx) => {
         const time = moment(message.createdAt).format("h:mm");
-        // Checks if we are at the last message
-        const lastMessage = idx === messages.length - 1;
         return message.senderId === userId ? (
           <SenderBubble
             key={message.id}
             text={message.text}
             time={time}
             otherUser={otherUser}
-            isRead={message.isRead}
-            lastMessage={lastMessage}
+            isRead={message.lastRead}
           />
         ) : (
           <OtherUserBubble
