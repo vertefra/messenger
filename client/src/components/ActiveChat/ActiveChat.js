@@ -43,7 +43,7 @@ export const ActiveChat = () => {
     if (foundConversation) {
       setConversation(foundConversation);
     }
-  }, [activeConversation]);
+  }, [activeConversation, conversation.messages]);
 
   const otherUser = conversation.otherUser;
 
