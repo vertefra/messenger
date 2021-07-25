@@ -54,11 +54,7 @@ export const AccessPage = () => {
                   <img src={bubble} alt="bubble" />
                 </div>
                 <Typography align="center" className={classes.hero}>
-<<<<<<< HEAD
-                    Converse with anyone in any language
-=======
                   Converse with anyone in any language
->>>>>>> 5-new-design-for-login/signup-pages
                 </Typography>
               </Box>
             </Grid>

@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const UserAvatar = (props) => {
+export const UserAvatar = (props) => {
   const classes = useStyles();
   const { sidebar, username, photoUrl, online } = props;
 
@@ -43,5 +43,3 @@ const UserAvatar = (props) => {
     </Box>
   );
 };
-
-export default UserAvatar;

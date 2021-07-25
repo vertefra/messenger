@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = (props) => {
+export const Header = (props) => {
   const classes = useStyles();
   const { username, online } = props;
 

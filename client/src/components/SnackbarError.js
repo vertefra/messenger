@@ -14,9 +14,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const SnackbarError = (props) => {
-  
   const classes = useStyles();
-  
+
   return (
     <Snackbar
       open={props.snackBarOpen}

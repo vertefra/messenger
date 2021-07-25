@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatContent = (props) => {
+export const ChatContent = (props) => {
   const classes = useStyles();
 
   const { conversation } = props;
@@ -39,5 +39,3 @@ const ChatContent = (props) => {
     </Box>
   );
 };
-
-export default ChatContent;

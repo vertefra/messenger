@@ -8,7 +8,7 @@ import { xsBreakPoint } from "../themes/theme";
 import { ActiveChat } from "./ActiveChat";
 import { SidebarContainer } from "./Sidebar";
 
-const useStyles = makeStyles(({root}) => ({
+const useStyles = makeStyles(({ root }) => ({
   root: {
     minHeight: "100vh",
     overflowY: "hidden",
@@ -20,13 +20,11 @@ const useStyles = makeStyles(({root}) => ({
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user);
   const classes = useStyles();
-  
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    user.isLoggedIn || false
-  );
-  
+
+  const [isLoggedIn, setIsLoggedIn] = useState(user.isLoggedIn || false);
+
   useEffect(() => {
     setIsLoggedIn(true);
   }, [user.id]);

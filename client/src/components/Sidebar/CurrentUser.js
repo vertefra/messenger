@@ -2,7 +2,7 @@ import { Box, Menu, MenuItem, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import React, { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/utils/thunkCreators";
 import { BadgeAvatar } from "./index";
 
@@ -35,15 +35,16 @@ const useStyles = makeStyles(({ menuItem }) => ({
   menuItem,
 }));
 
-const CurrentUser = (props) => {
+export const CurrentUser = () => {
   const classes = useStyles();
-  const user = props.user || {};
-  const [anchorEl, setAnchorEl] = useState(null);
+  const { user } = useSelector((state) => state) || {};
   const dispatch = useDispatch();
+
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenuClick = (ev) => {
     if ((ev.currentTarget.id = "logout-item")) {
-      dispatch(logout(props.user.id));
+      dispatch(logout(user.id));
     }
     setAnchorEl(null);
   };
@@ -83,11 +84,3 @@ const CurrentUser = (props) => {
     </Box>
   );
 };
-
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
-};
-
-export default connect(mapStateToProps)(CurrentUser);

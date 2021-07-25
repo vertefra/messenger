@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SenderBubble = (props) => {
+export const SenderBubble = (props) => {
   const classes = useStyles();
   const { time, text, otherUser, isRead } = props;
   return (
@@ -51,5 +51,3 @@ const SenderBubble = (props) => {
     </Box>
   );
 };
-
-export default SenderBubble;

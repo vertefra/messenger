@@ -1,13 +1,13 @@
 import { Box } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import React, { useMemo } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import socket from "../../socket";
 import { setActiveChat } from "../../store/activeConversation";
 import { setMessagesAsRead } from "../../store/conversations";
 import { BadgeAvatar, ChatContent } from "../Sidebar";
 
-const styles = {
+const useStyles = makeStyles(() => ({
   unreadBubble: {
     width: "28px",
     height: "15px",
@@ -29,26 +29,27 @@ const styles = {
     alignItems: "center",
     cursor: "pointer",
   },
-};
+}));
 
-const Chat = (props) => {
+export const Chat = ({ conversation }) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const { otherUser, messages } = conversation;
+  const { otherUsers } = useSelector((state) => state);
+  const { typingUsers } = otherUsers;
+
   const handleClick = async (conversation) => {
     conversation.messages = conversation.messages || [];
 
-    await props.setActiveChat(conversation.otherUser.username);
+    await dispatch(setActiveChat(conversation.otherUser.username));
 
     if (conversation.messages.length > 0) {
       const lastMessage =
         conversation.messages[conversation.messages.length - 1];
-      await props.setMessagesAsRead(lastMessage);
+      await dispatch(setMessagesAsRead(lastMessage));
       socket.emit("read-message", lastMessage);
     }
   };
-
-  // const [unreads, setUnread] = useState(0)
-  const { classes } = props;
-  const otherUser = props.conversation.otherUser;
-  const { messages } = props.conversation;
 
   const unreads = useMemo(() => {
     return messages.reduce(
@@ -58,9 +59,8 @@ const Chat = (props) => {
           : acc + 0,
       0
     );
-  }, [messages, otherUser]);
+  }, [messages.length, otherUser.id]);
 
-  const { typingUsers } = props.otherUsers;
   let isTyping = false;
 
   if (otherUser.id in typingUsers) {
@@ -69,41 +69,15 @@ const Chat = (props) => {
   }
 
   return (
-    <Box
-      onClick={() => handleClick(props.conversation)}
-      className={classes.root}
-    >
+    <Box onClick={() => handleClick(conversation)} className={classes.root}>
       <BadgeAvatar
         photoUrl={otherUser.photoUrl}
         username={otherUser.username}
         online={otherUser.online}
         sidebar={true}
       />
-      <ChatContent conversation={props.conversation} isTyping={isTyping} />
+      <ChatContent conversation={conversation} isTyping={isTyping} />
       {unreads !== 0 && <Box className={classes.unreadBubble}>{unreads}</Box>}
     </Box>
   );
 };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setActiveChat: (id) => {
-      dispatch(setActiveChat(id));
-    },
-    setMessagesAsRead: (conversationId) => {
-      dispatch(setMessagesAsRead(conversationId));
-    },
-  };
-};
-
-const mapStateToProps = (state) => {
-  return {
-    otherUsers: state.otherUsers,
-    activeConversation: state.activeConversation,
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Chat));
