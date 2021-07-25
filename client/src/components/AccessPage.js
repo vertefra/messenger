@@ -33,6 +33,7 @@ export const AccessPage = () => {
     <Grid container justifyContent="center">
       <Grid
         container
+        item
         alignItems="center"
         justifyContent="center"
         spacing={0}
@@ -48,14 +49,12 @@ export const AccessPage = () => {
               justifyContent="center"
               className={classes.overlay}
             >
-              <Box classes={classes.hero} justifyContent="center">
+              <Box justifyContent="center">
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <img src={bubble} />
+                  <img src={bubble} alt="bubble" />
                 </div>
-                <Typography align="center">
-                  <h1 className={classes.hero}>
-                    Converse with anyone in any language
-                  </h1>
+                <Typography align="center" className={classes.hero}>
+                  Converse with anyone in any language
                 </Typography>
               </Box>
             </Grid>
