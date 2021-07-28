@@ -1,8 +1,9 @@
 import { Avatar, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import React from "react";
 
-const useStyles = makeStyles(({ palette, bubble }) => ({
+const useStyles = makeStyles(({ bubble, palette }) => ({
   root: {
     display: "flex",
   },
@@ -18,19 +19,27 @@ const useStyles = makeStyles(({ palette, bubble }) => ({
     fontWeight: "bold",
     marginBottom: 5,
   },
-  text: {
-    fontSize: 14,
+  dots: {
+    fontSize: 10,
     fontWeight: "bold",
     color: palette.text.lightGrey,
-    letterSpacing: -0.2,
+    letterSpacing: 0.5,
     padding: 8,
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
   },
   bubble,
 }));
 
-export const OtherUserBubble = (props) => {
+const dotStyle = {
+  width: "10px",
+  margin: "0 6px",
+};
+
+export const OtherUserTypingBubble = (props) => {
   const classes = useStyles();
-  const { text, time, otherUser } = props;
+  const { otherUser } = props;
   return (
     <Box className={classes.root}>
       <Avatar
@@ -40,10 +49,14 @@ export const OtherUserBubble = (props) => {
       ></Avatar>
       <Box>
         <Typography className={classes.usernameDate}>
-          {otherUser.username} {time}
+          {otherUser.username}
         </Typography>
         <Box className={classes.bubble}>
-          <Typography className={classes.text}>{text}</Typography>
+          <Typography className={classes.dots}>
+            <FiberManualRecordIcon style={dotStyle} />
+            <FiberManualRecordIcon style={dotStyle} />
+            <FiberManualRecordIcon style={dotStyle} />
+          </Typography>
         </Box>
       </Box>
     </Box>

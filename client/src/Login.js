@@ -1,19 +1,41 @@
-import React from "react";
-import { Redirect, useHistory } from "react-router-dom";
-import { connect } from "react-redux";
 import {
-  Grid,
-  Box,
-  Typography,
   Button,
   FormControl,
+  Grid,
+  makeStyles,
+  Paper,
   TextField,
+  Typography,
 } from "@material-ui/core";
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { login } from "./store/utils/thunkCreators";
 
+const useStyles = makeStyles(
+  ({
+    formControll,
+    navbar,
+    submitButton,
+    loginButton,
+    loginBox,
+    credentialsForm,
+    paperButton,
+  }) => ({
+    navbar,
+    loginBox,
+    credentialsForm,
+    paperButton,
+    loginButton,
+    submitButton,
+    formControll,
+  })
+);
+
 const Login = (props) => {
-  const history = useHistory();
   const { user, login } = props;
+
+  const classes = useStyles();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -28,40 +50,65 @@ const Login = (props) => {
   }
 
   return (
-    <Grid container justify="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Button onClick={() => history.push("/register")}>Register</Button>
+    <Grid container alignItems="flex-start">
+      <Grid container className={classes.loginBox} direction="column">
+        <Grid className={classes.navbar}>
+          <Typography>Don't have an account?</Typography>
+          <Paper className={classes.paperButton}>
+            <Button
+              className={classes.loginButton}
+              onClick={() => props.setPage("signup")}
+            >
+              Signup
+            </Button>
+          </Paper>
         </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
-            <Grid>
-              <FormControl margin="normal" required>
-                <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
-                />
-              </FormControl>
+        <Grid>
+          <form onSubmit={handleLogin} className={classes.credentialsForm}>
+            <Grid item xs={10} sm={8}>
+              <Typography variant="h1">Welcome back!</Typography>
+              <Grid>
+                <FormControl
+                  margin="normal"
+                  required
+                  className={classes.formControll}
+                >
+                  <TextField
+                    aria-label="username"
+                    label="Username"
+                    name="username"
+                    type="text"
+                  />
+                </FormControl>
+              </Grid>
+              <Grid>
+                <FormControl
+                  margin="normal"
+                  required
+                  className={classes.formControll}
+                >
+                  <TextField
+                    label="password"
+                    aria-label="password"
+                    type="password"
+                    name="password"
+                  />
+                </FormControl>
+              </Grid>
+              <Grid container justifyContent="center">
+                <Button
+                  className={classes.submitButton}
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                >
+                  Login
+                </Button>
+              </Grid>
             </Grid>
-            <FormControl margin="normal" required>
-              <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
-              />
-            </FormControl>
-            <Grid>
-              <Button type="submit" variant="contained" size="large">
-                Login
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
-      </Box>
+          </form>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };

@@ -1,6 +1,6 @@
-export { default as SenderBubble } from "./SenderBubble";
-export { default as OtherUserBubble } from "./OtherUserBubble";
-export { default as ActiveChat } from "./ActiveChat";
-export { default as Input } from "./Input";
-export { default as Header } from "./Header";
-export { default as Messages } from "./Messages";
+export { ActiveChat } from "./ActiveChat";
+export { Header } from "./Header";
+export { Input } from "./Input";
+export { Messages } from "./Messages";
+export { OtherUserBubble } from "./OtherUserBubble";
+export { SenderBubble } from "./SenderBubble";

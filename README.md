@@ -4,49 +4,56 @@ A one-to-one realtime chat app.
 
 ## Initial Setup
 
-Create the PostgreSQL database (these instructions may need to be adapted for your operating system):
+You can start a postgres server using the provided docker image.
 
-```
-psql
-CREATE DATABASE messenger;
-\q
-```
+- Build the image
 
-Update db.js to connect with your local PostgreSQL set up. The [Sequelize documentation](https://sequelize.org/master/manual/getting-started.html) can help with this.
-
-Create a .env file in the server directory and add your session secret (this can be any string):
-
-```
-SESSION_SECRET = "your session secret"
+```bash
+ sudo docker build -t  messenger-db .
 ```
 
-In the server folder, install dependencies and then seed the database:
+- Run the container
 
 ```
-cd server
+sudo docker run -p 0.0.0.0:5432:5432/tcp messenger-db
+```
+
+A database called `messenger` will be automatically created with your pg server.
+
+## Run the project.
+
+### Install dependencies
+
+In the root folder
+
+```
 npm install
+```
+
+In the client folder
+
+```
+npm install
+```
+
+and in the server folder
+
+```
+npm install
+```
+
+### Seed the database
+
+With postgres running, in the root folder
+
+```
 npm run seed
 ```
 
-In the client folder, install dependencies:
+### Start the application
+
+In the root folder
 
 ```
-cd client
-npm install
-```
-
-### Running the Application Locally
-
-In one terminal, start the front end:
-
-```
-cd client
-npm start
-```
-
-In a separate terminal, start the back end:
-
-```
-cd server
 npm run dev
 ```

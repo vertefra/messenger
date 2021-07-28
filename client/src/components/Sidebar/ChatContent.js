@@ -1,6 +1,6 @@
-import React from "react";
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatContent = (props) => {
+export const ChatContent = (props) => {
   const classes = useStyles();
 
   const { conversation } = props;
@@ -33,11 +33,9 @@ const ChatContent = (props) => {
           {otherUser.username}
         </Typography>
         <Typography className={classes.previewText}>
-          {latestMessageText}
+          {props.isTyping ? "Typing..." : latestMessageText}
         </Typography>
       </Box>
     </Box>
   );
 };
-
-export default ChatContent;
