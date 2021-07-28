@@ -1,7 +1,8 @@
 import { createTheme } from "@material-ui/core";
 
-const xsBreakPoint = 600;
-const xsBreakPointH = 700;
+export const xsBreakPoint = 600;
+export const xsBreakPointH = 700;
+
 export const theme = createTheme({
   xsBreakPoint,
   typography: {
@@ -44,24 +45,6 @@ export const theme = createTheme({
     flexDirection: "column",
     justifyContent: "center",
   },
-  paperButton: {
-    margin: 25,
-    width: "35%",
-    height: "4rem",
-    [`@media (max-width:${xsBreakPoint}px)`]: {
-      margin: 15,
-    },
-    [`@media (max-height:${xsBreakPointH}px)`]: {
-      margin: 5,
-      width: "25%",
-      height: "2.5rem",
-    },
-  },
-  loginButton: {
-    color: "#3A8DFF",
-    width: "100%",
-    height: "100%",
-  },
   navbar: {
     width: "100%",
     position: "absolute",
@@ -71,38 +54,7 @@ export const theme = createTheme({
     alignItems: "center",
     color: "#9e9e9e",
   },
-  credentialsForm: {
-    display: "flex",
-    justifyContent: "center",
-    [`@media (max-width:${xsBreakPoint}px)`]: {
-      marginTop: 30,
-    },
-    [`@media (max-height:${xsBreakPointH}px)`]: {
-      fontSize: 12,
-      marginTop: "4.8rem",
-      padding: "0.5rem 1.8rem",
-    },
-  },
-  submitButton: {
-    color: "#FFFFFF",
-    backgroundColor: "#3A8DFF",
-    borderRadius: "2px",
-    padding: "1rem 3.8rem",
-    margin: 28,
-    [`@media (max-height:${xsBreakPointH}px)`]: {
-      fontSize: 12,
-      marginTop: "15px",
-      padding: "0.5rem 1.8rem",
-    },
-  },
-  formControll: {
-    width: "100%",
-    // check this
-    [`@media (max-height:${xsBreakPointH}px)`]: {
-      fontSize: 12,
-      margin: 0,
-    },
-  },
+
   overrides: {
     MuiInput: {
       input: {

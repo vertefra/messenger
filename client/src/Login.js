@@ -1,39 +1,19 @@
-import {
-  Button,
-  FormControl,
-  Grid,
-  makeStyles,
-  Paper,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { AccessPage } from "./components/AccessPage";
+import { Form } from "./lib/Form";
+import { FormNav } from "./lib/FormNav";
+import { TextFormField } from "./lib/TextFormField";
 import { login } from "./store/utils/thunkCreators";
-import { FormField, Credentials } from "./lib/index"
-const useStyles = makeStyles(
-  ({
-    formControll,
-    navbar,
-    submitButton,
-    loginButton,
-    loginBox,
-    credentialsForm,
-    paperButton,
-  }) => ({
-    navbar,
-    loginBox,
-    credentialsForm,
-    paperButton,
-    loginButton,
-    submitButton,
-    formControll,
-  })
-);
+const useStyles = makeStyles(({ navbar, loginBox }) => ({
+  navbar,
+  loginBox,
+}));
 
 const Login = (props) => {
-  const { user, login } = props;
+  const { user, login, history } = props;
 
   const classes = useStyles();
 
@@ -50,72 +30,42 @@ const Login = (props) => {
   }
 
   return (
-    <Grid container alignItems="flex-start">
-      <Grid container className={classes.loginBox} direction="column">
-        <Grid className={classes.navbar}>
-          <Typography>Don't have an account?</Typography>
-          <Paper className={classes.paperButton}>
-            <Button
-              className={classes.loginButton}
-              onClick={() => props.setPage("signup")}
-            >
-              Signup
-            </Button>
-          </Paper>
-        </Grid>
-        <Credentials>
-          <FormField 
-            margin="normal"
+    <AccessPage>
+      <Grid container alignItems="flex-start">
+        <Grid container className={classes.loginBox} direction="column">
+          <FormNav
+            handleOnClick={() => history.push("/signup")}
+            buttonValue="Signup"
+            className={classes.navbar}
+            title="Don't have an account yet?"
           />
-        </Credentials>
-        {/* this is where the custom component will come into play */}
-        {/* <Grid>
-          <form onSubmit={handleLogin} className={classes.credentialsForm}>
-            <Grid item xs={10} sm={8}>
-              <Typography variant="h1">Welcome back!</Typography>
-              <Grid>
-                <FormControl
-                  margin="normal"
-                  required
-                  className={classes.formControll}
-                >
-                  <TextField
-                    aria-label="username"
-                    label="Username"
-                    name="username"
-                    type="text"
-                  />
-                </FormControl>
-              </Grid>
-              <Grid>
-                <FormControl
-                  margin="normal"
-                  required
-                  className={classes.formControll}
-                >
-                  <TextField
-                    label="password"
-                    aria-label="password"
-                    type="password"
-                    name="password"
-                  />
-                </FormControl>
-              </Grid>
-              <Grid container justifyContent="center">
-                <Button
-                  className={classes.submitButton}
-                  type="submit"
-                  variant="contained"
-                  size="large"
-                >
-                  Login
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </Grid> */}
+          <Grid>
+            <Form
+              formTitle="Welcome Back!"
+              handleSubmit={handleLogin}
+              submitValue="Login"
+              xs={10}
+              sm={8}
+            >
+              <TextFormField
+                required
+                ariaLabel="username"
+                label="Username"
+                name="username"
+                inputType="text"
+              />
+              <TextFormField
+                required
+                ariaLabel="password"
+                name="password"
+                label="Password"
+                inputType="password"
+              />
+            </Form>
+          </Grid>
+        </Grid>
       </Grid>
-    </Grid>
+    </AccessPage>
   );
 };
 

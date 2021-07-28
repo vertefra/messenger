@@ -11,7 +11,7 @@ import bubble from "../assets/bubble.svg";
 import Login from "../Login";
 import Signup from "../Signup";
 
-const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
+const useStyles = makeStyles(({ palette, typography }) => ({
   overlay: {
     minHeight: "100vh",
     backgroungSize: "cover",
@@ -24,8 +24,8 @@ const useStyles = makeStyles(({ palette, typography, breakpoints }) => ({
   hero: typography.hero,
 }));
 
-export const AccessPage = () => {
-  const [page, setPage] = useState("login");
+export const AccessPage = ({ children }) => {
+  // const [page, setPage] = useState("login");
 
   const classes = useStyles();
 
@@ -61,8 +61,7 @@ export const AccessPage = () => {
           </CardMedia>
         </Grid>
         <Grid item sm={7} xs={12}>
-          {page === "login" && <Login setPage={setPage} />}
-          {page === "signup" && <Signup setPage={setPage} />}
+          {children}
         </Grid>
       </Grid>
     </Grid>

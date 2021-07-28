@@ -1,53 +1,41 @@
-import {
-  Button,
-  FormControl,
-  FormHelperText,
-  Grid,
-  makeStyles,
-  Paper,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { AccessPage } from "./components/AccessPage";
+import { Form } from "./lib/Form";
+import { FormNav } from "./lib/FormNav";
+import { TextFormField } from "./lib/TextFormField";
 import { register } from "./store/utils/thunkCreators";
 
-const useStyles = makeStyles(
-  ({
-    formControll,
-    navbar,
-    submitButton,
-    loginButton,
-    loginBox,
-    credentialsForm,
-    paperButton,
-  }) => ({
-    navbar,
-    loginBox,
-    loginButton,
-    credentialsForm,
-    formControll,
-    submitButton,
-    paperButton,
-  })
-);
+const useStyles = makeStyles(({ loginBox, navbar }) => ({
+  loginBox,
+  navbar,
+}));
 
 const Login = (props) => {
-  const { user, register } = props;
-  const [formErrorMessage, setFormErrorMessage] = useState({});
+  const { user, register, history } = props;
+  const [formErrorMessage, setFormErrorMessage] = useState({
+    error: false,
+    message: "",
+  });
 
   const classes = useStyles();
 
   const handleRegister = async (event) => {
     event.preventDefault();
+    setFormErrorMessage({ error: false, message: "" });
+
     const username = event.target.username.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
     const confirmPassword = event.target.confirmPassword.value;
 
     if (password !== confirmPassword) {
-      setFormErrorMessage({ confirmPassword: "Passwords must match" });
+      setFormErrorMessage({
+        error: true,
+        message: "Password are not equal",
+      });
       return;
     }
 
@@ -59,98 +47,60 @@ const Login = (props) => {
   }
 
   return (
-    <Grid container alignItems="flex-start">
-      <Grid container className={classes.loginBox} direction="column">
-        <Grid container item className={classes.navbar}>
-          <Typography>Need to log in?</Typography>
-          <Paper className={classes.paperButton}>
-            <Button
-              className={classes.loginButton}
-              onClick={() => props.setPage("login")}
+    <AccessPage>
+      <Grid container alignItems="flex-start">
+        <Grid container className={classes.loginBox} direction="column">
+          <FormNav
+            handleOnClick={() => history.push("/login")}
+            buttonValue="Login"
+            className={classes.navbar}
+            title="Already registered?"
+          />
+          <Grid>
+            <Form
+              formTitle="Create an account"
+              xs={10}
+              sm={8}
+              handleSubmit={handleRegister}
+              submitValue="Create"
             >
-              Login
-            </Button>
-          </Paper>
-        </Grid>
-        <Grid>
-          <form onSubmit={handleRegister} className={classes.credentialsForm}>
-            <Grid item xs={10} sm={8}>
-              <Typography variant="h1">Create an account</Typography>
-              <Grid>
-                <FormControl margin="normal" className={classes.formControll}>
-                  <TextField
-                    aria-label="username"
-                    label="Username"
-                    name="username"
-                    type="text"
-                    required
-                  />
-                </FormControl>
-              </Grid>
-              <Grid>
-                <FormControl margin="normal" className={classes.formControll}>
-                  <TextField
-                    label="E-mail address"
-                    aria-label="e-mail address"
-                    type="email"
-                    name="email"
-                    required
-                  />
-                </FormControl>
-              </Grid>
-              <Grid>
-                <FormControl
-                  margin="normal"
-                  error={!!formErrorMessage.confirmPassword}
-                  className={classes.formControll}
-                >
-                  <TextField
-                    aria-label="password"
-                    label="Password"
-                    type="password"
-                    inputProps={{ minLength: 6 }}
-                    name="password"
-                    required
-                  />
-                  <FormHelperText>
-                    {formErrorMessage.confirmPassword}
-                  </FormHelperText>
-                </FormControl>
-              </Grid>
-              <Grid>
-                <FormControl
-                  margin="normal"
-                  error={!!formErrorMessage.confirmPassword}
-                  className={classes.formControll}
-                >
-                  <TextField
-                    label="Confirm Password"
-                    aria-label="confirm password"
-                    type="password"
-                    inputProps={{ minLength: 6 }}
-                    name="confirmPassword"
-                    required
-                  />
-                  <FormHelperText>
-                    {formErrorMessage.confirmPassword}
-                  </FormHelperText>
-                </FormControl>
-              </Grid>
-              <Grid container justifyContent="center">
-                <Button
-                  className={classes.submitButton}
-                  type="submit"
-                  variant="contained"
-                  size="large"
-                >
-                  Create
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
+              <TextFormField
+                required
+                ariaLabel="username"
+                label="Username"
+                inputType="text"
+                name="username"
+              />
+              <TextFormField
+                required
+                ariaLabel="e-mail address"
+                label="Email address"
+                inputType="email"
+                name="email"
+              />
+              <TextFormField
+                required
+                ariaLabel="password"
+                label="Password"
+                inputType="password"
+                error={formErrorMessage.error}
+                helpMessage={formErrorMessage.message}
+                minLength={6}
+                name="password"
+              />
+              <TextFormField
+                required
+                ariaLabel="confirm-password"
+                label="Confirm Password"
+                inputType="password"
+                minLength={6}
+                name="confirmPassword"
+              />
+            </Form>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </AccessPage>
   );
 };
 

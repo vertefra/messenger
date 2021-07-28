@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { Home, SnackbarError } from "./components";
 import { AccessPage } from "./components/AccessPage";
+import Login from "./Login";
+import Signup from "./Signup";
 import { fetchUser } from "./store/utils/thunkCreators";
 
 const Routes = (props) => {
@@ -40,7 +42,8 @@ const Routes = (props) => {
         />
       )}
       <Switch>
-        <Route path="/login" component={AccessPage} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         <Route
           exact
           path="/"
