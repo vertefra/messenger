@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { clearOnLogout } from "../store/index";
 import { fetchConversations, logout } from "../store/utils/thunkCreators";
+import { xsBreakPoint } from "../themes/theme";
 import { ActiveChat } from "./ActiveChat";
 import { SidebarContainer } from "./Sidebar";
 
-const xsBreakPoint = 600;
 
 const styles = {
   root: {
