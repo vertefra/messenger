@@ -11,7 +11,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "./store/utils/thunkCreators";
-
+import { FormField, Credentials } from "./lib/index"
 const useStyles = makeStyles(
   ({
     formControll,
@@ -63,7 +63,13 @@ const Login = (props) => {
             </Button>
           </Paper>
         </Grid>
-        <Grid>
+        <Credentials>
+          <FormField 
+            margin="normal"
+          />
+        </Credentials>
+        {/* this is where the custom component will come into play */}
+        {/* <Grid>
           <form onSubmit={handleLogin} className={classes.credentialsForm}>
             <Grid item xs={10} sm={8}>
               <Typography variant="h1">Welcome back!</Typography>
@@ -107,7 +113,7 @@ const Login = (props) => {
               </Grid>
             </Grid>
           </form>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Grid>
   );
