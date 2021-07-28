@@ -37,7 +37,7 @@ const dotStyle = {
   margin: "0 6px",
 };
 
-const OtherUserTypingBubble = (props) => {
+export const OtherUserTypingBubble = (props) => {
   const classes = useStyles();
   const { otherUser } = props;
   return (
@@ -62,5 +62,3 @@ const OtherUserTypingBubble = (props) => {
     </Box>
   );
 };
-
-export default OtherUserTypingBubble;

@@ -1,10 +1,8 @@
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
-import { connect } from "react-redux";
-import store from "../../store";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Header, Input, Messages } from "./index";
-import OtherUserTypingBubble from "./OtherUserTypingBubble";
 
 const useStyles = makeStyles(({ xsBreakPoint }) => ({
   root: {
@@ -26,15 +24,33 @@ const useStyles = makeStyles(({ xsBreakPoint }) => ({
   },
 }));
 
-const ActiveChat = (props) => {
+export const ActiveChat = () => {
   const classes = useStyles();
-  const { user } = props;
-  const conversation = props.conversation || {};
+  const { user, otherUsers, conversations, activeConversation } = useSelector(
+    (state) => state
+  );
+
+  const [conversation, setConversation] = useState({
+    id: 0,
+    otherUser: {},
+    messages: [],
+  });
+
+  useEffect(() => {
+    const foundConversation = conversations.find((c) => {
+      return c.otherUser.username === activeConversation;
+    });
+    if (foundConversation) {
+      setConversation(foundConversation);
+    }
+  }, [activeConversation, conversation.messages]);
+
   const otherUser = conversation.otherUser;
 
   let isTyping = false;
 
-  const { typingUsers } = store.getState().otherUsers;
+  const { typingUsers } = otherUsers;
+
   if (conversation && otherUser) {
     if (otherUser.id in typingUsers) {
       const typingUser = typingUsers[otherUser.id];
@@ -55,10 +71,8 @@ const ActiveChat = (props) => {
               messages={conversation.messages}
               otherUser={conversation.otherUser}
               userId={user.id}
+              isTyping={isTyping}
             />
-            {isTyping && (
-              <OtherUserTypingBubble otherUser={conversation.otherUser} />
-            )}
             <Input
               otherUser={conversation.otherUser}
               conversationId={conversation.id}
@@ -70,18 +84,3 @@ const ActiveChat = (props) => {
     </Box>
   );
 };
-
-const mapStateToProps = (state) => {
-  return {
-    typingUsers: state.otherUsers.typingUsers,
-    user: state.user,
-    conversation:
-      state.conversations &&
-      state.conversations.find(
-        (conversation) =>
-          conversation.otherUser.username === state.activeConversation
-      ),
-  };
-};
-
-export default connect(mapStateToProps, null)(ActiveChat);

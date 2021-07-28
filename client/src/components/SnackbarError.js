@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Close from "@material-ui/icons/Close";
 import React from "react";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   snackbar: {
     backgroundColor: "red",
     fontWeight: "bold",
@@ -13,14 +13,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SnackbarError = (props) => {
+export const SnackbarError = (props) => {
   const classes = useStyles();
+
   return (
     <Snackbar
       open={props.snackBarOpen}
       onClose={() => props.setSnackBarOpen(false)}
       message={
-        props.errorMessage || "Sorry, an error occured. Please try again"
+        props.errorMessage || "Sorry, an error occurred. Please try again"
       }
       action={
         <React.Fragment>
@@ -41,5 +42,3 @@ const SnackbarError = (props) => {
     />
   );
 };
-
-export default SnackbarError;

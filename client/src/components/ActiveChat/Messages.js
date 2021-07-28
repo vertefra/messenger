@@ -2,6 +2,7 @@ import { Box, makeStyles } from "@material-ui/core";
 import moment from "moment";
 import React, { useEffect, useRef } from "react";
 import { OtherUserBubble, SenderBubble } from "../ActiveChat";
+import { OtherUserTypingBubble } from "./OtherUserTypingBubble";
 
 const useStyles = makeStyles(() => ({
   messages: {
@@ -11,8 +12,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Messages = (props) => {
-  const { messages, otherUser, userId } = props;
+export const Messages = (props) => {
+  const { messages, otherUser, userId, isTyping } = props;
   const classes = useStyles();
 
   const msgRef = useRef();
@@ -26,7 +27,7 @@ const Messages = (props) => {
 
   return (
     <Box className={classes.messages}>
-      {messages.map((message, idx) => {
+      {messages.map((message) => {
         const time = moment(message.createdAt).format("h:mm");
         return message.senderId === userId ? (
           <SenderBubble
@@ -45,9 +46,8 @@ const Messages = (props) => {
           />
         );
       })}
+      {isTyping && <OtherUserTypingBubble otherUser={otherUser} />}
       <div ref={msgRef}></div>
     </Box>
   );
 };
-
-export default Messages;

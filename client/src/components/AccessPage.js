@@ -25,7 +25,6 @@ const useStyles = makeStyles(({ palette, typography }) => ({
 }));
 
 export const AccessPage = ({ children }) => {
-  // const [page, setPage] = useState("login");
 
   const classes = useStyles();
 

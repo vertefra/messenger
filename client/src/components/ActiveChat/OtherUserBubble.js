@@ -28,7 +28,7 @@ const useStyles = makeStyles(({ palette, bubble }) => ({
   bubble,
 }));
 
-const OtherUserBubble = (props) => {
+export const OtherUserBubble = (props) => {
   const classes = useStyles();
   const { text, time, otherUser } = props;
   return (
@@ -49,5 +49,3 @@ const OtherUserBubble = (props) => {
     </Box>
   );
 };
-
-export default OtherUserBubble;
