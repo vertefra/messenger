@@ -4,6 +4,13 @@ const defaultOtherUsersState = {
 
 const SET_USER_TYPING_STATE = "SET_USER_TYPING_STATE";
 
+// otherUsersState can hold multiple objects
+// to describe events happening on other users 
+// connected with us. The only object implemented
+// up to now is typingUsers, an object that uses
+// userId as a key a boolean isTyping, and the name
+// of the conversation that he is typing in.
+
 // Reducing function
 const setUserTypingState = (
   state = defaultOtherUsersState,
