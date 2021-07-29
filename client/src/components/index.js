@@ -1,2 +1,2 @@
-export { default as Home } from "./Home";
-export { default as SnackbarError } from "./SnackbarError";
+export { Home } from "./Home";
+export { SnackbarError } from "./SnackbarError";

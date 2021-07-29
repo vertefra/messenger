@@ -1,24 +1,53 @@
-import React from "react";
-import { Box } from "@material-ui/core";
-import { SenderBubble, OtherUserBubble } from "../ActiveChat";
+import { Box, makeStyles } from "@material-ui/core";
 import moment from "moment";
+import React, { useEffect, useRef } from "react";
+import { OtherUserBubble, SenderBubble } from "../ActiveChat";
+import { OtherUserTypingBubble } from "./OtherUserTypingBubble";
 
-const Messages = (props) => {
-  const { messages, otherUser, userId } = props;
+const useStyles = makeStyles(() => ({
+  messages: {
+    height: "78vh",
+    overflowY: "scroll",
+    marginBottom: 95,
+  },
+}));
+
+export const Messages = (props) => {
+  const { messages, otherUser, userId, isTyping } = props;
+  const classes = useStyles();
+
+  const msgRef = useRef();
+  // scroll down to the last message
+
+  useEffect(() => {
+    if (msgRef.current) {
+      msgRef.current.scrollIntoView({ behaviour: "smooth" });
+    }
+  }, [messages.length]);
 
   return (
-    <Box>
+    <Box className={classes.messages}>
       {messages.map((message) => {
         const time = moment(message.createdAt).format("h:mm");
-
         return message.senderId === userId ? (
-          <SenderBubble key={message.id} text={message.text} time={time} />
+          <SenderBubble
+            key={message.id}
+            text={message.text}
+            time={time}
+            otherUser={otherUser}
+            isRead={message.lastRead}
+          />
         ) : (
-          <OtherUserBubble key={message.id} text={message.text} time={time} otherUser={otherUser} />
+          <OtherUserBubble
+            key={message.id}
+            text={message.text}
+            time={time}
+            otherUser={otherUser}
+          />
         );
       })}
+      {isTyping && <OtherUserTypingBubble otherUser={otherUser} />}
+      <div ref={msgRef}></div>
     </Box>
   );
 };
-
-export default Messages;
